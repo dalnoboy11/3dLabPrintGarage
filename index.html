@@ -5,8 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3dLabPrintGarage - Студія 3D Друку в Одесі</title>
     <style>
+        :root {
+            --bg-section-alt: #f5f5f5;
+            --bg-section: #ffffff;
+            --text-primary: #333333;
+            --text-muted: #555555;
+            --input-bg: #ffffff;
+            --input-border: #dddddd;
+            --card-bg: #f9f9f9;
+            --footer-bg: #333333;
+            --footer-text: #ffffff;
+        }
+        body.dark-mode {
+            --bg-section-alt: #1e1e2e;
+            --bg-section: #16213e;
+            --text-primary: #e0e0e0;
+            --text-muted: #aaaaaa;
+            --input-bg: #2a2a3e;
+            --input-border: #444466;
+            --card-bg: #252540;
+            --footer-bg: #0f0f1a;
+            --footer-text: #cccccc;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; }
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: var(--text-primary); }
         nav { background: rgba(0,0,0,0.9); padding: 1rem; position: sticky; top: 0; z-index: 100; }
         nav a { color: #fff; text-decoration: none; margin: 0 1.5rem; font-weight: bold; transition: color 0.3s; }
         nav a:hover { color: #ff006e; }
@@ -16,34 +38,34 @@
         .cta-btn { background: #ff006e; color: white; border: none; padding: 1rem 2rem; font-size: 1rem; border-radius: 5px; cursor: pointer; transition: transform 0.3s; }
         .cta-btn:hover { transform: scale(1.1); }
         section { padding: 3rem 2rem; }
-        .gallery { background: #f5f5f5; text-align: center; }
+        .gallery { background: var(--bg-section-alt); text-align: center; }
         .gallery h3, .calculator h3, .about h3, .contact h3 { font-size: 2.5rem; margin-bottom: 2rem; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 1000px; margin: 0 auto; }
         .gallery-item { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 10px; color: white; text-align: center; transition: transform 0.3s; }
         .gallery-item:hover { transform: translateY(-10px); }
-        .calculator { background: white; text-align: center; }
-        .calc-form { max-width: 500px; margin: 0 auto; background: #f9f9f9; padding: 2rem; border-radius: 10px; }
+        .calculator { background: var(--bg-section); text-align: center; }
+        .calc-form { max-width: 500px; margin: 0 auto; background: var(--card-bg); padding: 2rem; border-radius: 10px; }
         .input-group { margin-bottom: 1.5rem; text-align: left; }
-        .input-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
-        .input-group input, .input-group select { width: 100%; padding: 0.8rem; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem; }
+        .input-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; color: var(--text-primary); }
+        .input-group input, .input-group select { width: 100%; padding: 0.8rem; border: 2px solid var(--input-border); border-radius: 5px; font-size: 1rem; background: var(--input-bg); color: var(--text-primary); }
         .result { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 5px; margin: 1rem 0; }
         .result h4 { font-size: 2rem; margin-top: 0.5rem; }
         .order-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1rem; width: 100%; font-size: 1rem; border-radius: 5px; cursor: pointer; font-weight: bold; transition: transform 0.3s; }
         .order-btn:hover { transform: scale(1.05); }
-        .about { background: #f5f5f5; }
+        .about { background: var(--bg-section-alt); }
         .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto; }
         .about-text { text-align: left; }
         .about-text ul { list-style: none; margin-left: 1rem; }
         .about-text li { margin: 0.5rem 0; line-height: 1.6; }
-        .contact { background: white; }
+        .contact { background: var(--bg-section); }
         .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0; }
-        .contact-item { background: #f9f9f9; padding: 2rem; border-radius: 10px; }
+        .contact-item { background: var(--card-bg); padding: 2rem; border-radius: 10px; color: var(--text-primary); }
         .contact-item a { color: #667eea; text-decoration: none; font-weight: bold; }
-        .contact-form { max-width: 600px; margin: 2rem auto; background: #f9f9f9; padding: 2rem; border-radius: 10px; }
-        .contact-form input, .contact-form textarea { width: 100%; padding: 0.8rem; margin: 1rem 0; border: 2px solid #ddd; border-radius: 5px; font-family: Arial; }
+        .contact-form { max-width: 600px; margin: 2rem auto; background: var(--card-bg); padding: 2rem; border-radius: 10px; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 0.8rem; margin: 1rem 0; border: 2px solid var(--input-border); border-radius: 5px; font-family: Arial; background: var(--input-bg); color: var(--text-primary); }
         .submit-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1rem; width: 100%; font-size: 1rem; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .submit-btn:hover { transform: scale(1.05); }
-        footer { background: #333; color: white; text-align: center; padding: 2rem; }
+        footer { background: var(--footer-bg); color: var(--footer-text); text-align: center; padding: 2rem; }
 
         /* Chat Widget */
         .chat-toggle-btn {
@@ -181,12 +203,41 @@
         .chat-img-btn:hover { border-color: #667eea; }
         #chatImageInput { display: none; }
 
+        /* Dark mode overrides for chat widget */
+        body.dark-mode .chat-widget { background: var(--bg-section); }
+        body.dark-mode .chat-msg.bot { background: #2a2a3e; color: var(--text-primary); }
+        body.dark-mode .chat-input-area { background: var(--card-bg); border-top-color: #444; }
+        body.dark-mode .chat-input-area input[type="text"] { background: var(--input-bg); color: var(--text-primary); border-color: var(--input-border); }
+        body.dark-mode .chat-img-btn { border-color: var(--input-border); color: var(--text-primary); }
+        body.dark-mode .gallery h3,
+        body.dark-mode .calculator h3,
+        body.dark-mode .about h3,
+        body.dark-mode .contact h3,
+        body.dark-mode .about-text,
+        body.dark-mode .contact-item h4,
+        body.dark-mode .contact-form h4 { color: var(--text-primary); }
+
+        /* Dark mode toggle button */
+        .dark-mode-btn {
+            background: none;
+            border: 2px solid rgba(255,255,255,0.6);
+            border-radius: 20px;
+            color: white;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            float: right;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .dark-mode-btn:hover { background: rgba(255,255,255,0.15); border-color: white; }
+
         @media (max-width: 768px) {
             .about-content { grid-template-columns: 1fr; }
             .hero h2 { font-size: 2rem; }
             nav a { margin: 0 0.7rem; font-size: 0.9rem; }
             .chat-widget { width: calc(100vw - 2rem); right: 1rem; bottom: 5rem; }
             .chat-toggle-btn { right: 1rem; bottom: 1rem; }
+            .dark-mode-btn { font-size: 0.75rem; padding: 0.25rem 0.6rem; }
         }
     </style>
 </head>
@@ -196,6 +247,7 @@
         <a href="#calculator">Калькулятор</a>
         <a href="#about">Про нас</a>
         <a href="#contact">Контакти</a>
+        <button class="dark-mode-btn" id="darkModeBtn" aria-label="Перемкнути темний режим" title="Темний / Світлий режим">🌙 Темний режим</button>
     </nav>
 
     <section class="hero">
@@ -219,7 +271,7 @@
     </section>
 
     <section id="calculator" class="calculator">
-        <h3>Калькулятор стоимості</h3>
+        <h3>Калькулятор вартості</h3>
         <div class="calc-form">
             <div class="input-group">
                 <label for="weight">Вага деталі (грам):</label>
@@ -241,6 +293,11 @@
             <div class="result">
                 <p>Орієнтовна вартість:</p>
                 <h4 id="price">0 грн</h4>
+                <div id="priceBreakdown" style="font-size:0.85rem; margin-top:0.6rem; opacity:0.9; text-align:left; display:none;">
+                    <p id="breakdownMaterial"></p>
+                    <p id="breakdownElec"></p>
+                    <p id="breakdownBase">Базова плата: 50 грн</p>
+                </div>
             </div>
             <button class="order-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Замовити</button>
         </div>
@@ -335,16 +392,29 @@
             const material = document.getElementById('material').value;
 
             let pricePerGram = 0;
-            if (material === 'pla') pricePerGram = 5;
-            else if (material === 'petg') pricePerGram = 7;
-            else if (material === 'abs') pricePerGram = 6;
-            else if (material === 'resin') pricePerGram = 3;
+            let materialLabel = '';
+            let materialUnit = 'г';
+            if (material === 'pla')   { pricePerGram = 5; materialLabel = 'PLA (5 грн/г)'; }
+            else if (material === 'petg') { pricePerGram = 7; materialLabel = 'PETG (7 грн/г)'; }
+            else if (material === 'abs')  { pricePerGram = 6; materialLabel = 'ABS (6 грн/г)'; }
+            else if (material === 'resin'){ pricePerGram = 3; materialLabel = 'Смола (3 грн/мл)'; materialUnit = 'мл'; }
 
             const materialCost = weight * pricePerGram;
             const electricityCost = time * 3;
             const totalCost = materialCost + electricityCost + 50;
 
             document.getElementById('price').textContent = Math.round(totalCost) + ' грн';
+
+            const breakdown = document.getElementById('priceBreakdown');
+            if (weight > 0 || time > 0) {
+                document.getElementById('breakdownMaterial').textContent =
+                    'Матеріал (' + materialLabel + ' × ' + weight + ' ' + materialUnit + '): ' + Math.round(materialCost) + ' грн';
+                document.getElementById('breakdownElec').textContent =
+                    'Електроенергія (3 грн/год × ' + time + ' год): ' + Math.round(electricityCost) + ' грн';
+                breakdown.style.display = 'block';
+            } else {
+                breakdown.style.display = 'none';
+            }
         }
 
         function handleSubmit(e) {
@@ -352,6 +422,22 @@
             alert('Дякуємо за повідомлення! Ми звернемося до вас найближчим часом.');
             e.target.reset();
         }
+
+        // --- Dark mode toggle ---
+        const darkModeBtn = document.getElementById('darkModeBtn');
+        function applyDarkMode(isDark) {
+            document.body.classList.toggle('dark-mode', isDark);
+            darkModeBtn.textContent = isDark ? '☀️ Світлий режим' : '🌙 Темний режим';
+            darkModeBtn.title = isDark ? 'Перемкнути на світлий режим' : 'Перемкнути на темний режим';
+        }
+        // Restore preference from localStorage
+        const savedDark = localStorage.getItem('darkMode') === 'true';
+        applyDarkMode(savedDark);
+        darkModeBtn.addEventListener('click', () => {
+            const isDark = !document.body.classList.contains('dark-mode');
+            applyDarkMode(isDark);
+            localStorage.setItem('darkMode', isDark);
+        });
 
         // --- Chat widget ---
         const chatToggle = document.getElementById('chatToggle');
