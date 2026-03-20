@@ -1,19 +1,29 @@
-// Calculator functionality
+// Calculator functionality — safe arithmetic evaluator (no eval)
 function calculate(expression) {
     try {
-        return eval(expression);
+        if (!/^[\d\s+\-*/.()]+$/.test(expression)) {
+            return 'Error';
+        }
+        // eslint-disable-next-line no-new-func
+        return new Function('return ' + expression)();
     } catch (e) {
         return 'Error';
     }
 }
 
-// Smooth scrolling interactions
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
+if (typeof module !== 'undefined') {
+    module.exports = { calculate };
+}
 
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+// Smooth scrolling interactions (browser-only)
+if (typeof document !== 'undefined') {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
         });
     });
-});
+}

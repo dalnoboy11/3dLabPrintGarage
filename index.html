@@ -327,24 +327,15 @@
         </div>
     </div>
 
+    <script src="js/calculator.js"></script>
+    <script src="js/chatbot.js"></script>
     <script>
         // --- Price calculator ---
         function calculatePrice() {
             const weight = parseFloat(document.getElementById('weight').value) || 0;
             const time = parseFloat(document.getElementById('time').value) || 0;
             const material = document.getElementById('material').value;
-
-            let pricePerGram = 0;
-            if (material === 'pla') pricePerGram = 5;
-            else if (material === 'petg') pricePerGram = 7;
-            else if (material === 'abs') pricePerGram = 6;
-            else if (material === 'resin') pricePerGram = 3;
-
-            const materialCost = weight * pricePerGram;
-            const electricityCost = time * 3;
-            const totalCost = materialCost + electricityCost + 50;
-
-            document.getElementById('price').textContent = Math.round(totalCost) + ' грн';
+            document.getElementById('price').textContent = computePrice(weight, time, material) + ' грн';
         }
 
         function handleSubmit(e) {
@@ -381,18 +372,7 @@
         }
 
         function botReply(userText) {
-            const lower = (userText || '').toLowerCase();
-            let reply;
-            if (lower.includes('ціна') || lower.includes('вартість') || lower.includes('скільки')) {
-                reply = 'Для розрахунку вартості скористайтесь нашим калькулятором вище 👆 або надішліть нам фото вашої деталі.';
-            } else if (lower.includes('фото') || lower.includes('зображ') || lower.includes('картин')) {
-                reply = 'Надішліть фото через кнопку 📷 — ми оцінимо ваш проєкт!';
-            } else if (lower.includes('час') || lower.includes('терм')) {
-                reply = 'Зазвичай ми виконуємо замовлення протягом 1–3 днів залежно від складності.';
-            } else {
-                reply = 'Дякуємо за повідомлення! Менеджер зв\'яжеться з вами найближчим часом. 📞';
-            }
-            setTimeout(() => addMessage(reply, 'bot'), BOT_REPLY_DELAY);
+            setTimeout(() => addMessage(getBotReply(userText), 'bot'), BOT_REPLY_DELAY);
         }
 
         chatToggle.addEventListener('click', () => {
