@@ -3,7 +3,7 @@ function calculate(expression) {
     try {
         // Allow only digits, operators, spaces, dots and parentheses
         if (!/^[\d\s+\-*/().]+$/.test(expression)) return 'Error';
-        const tokens = expression.match(/(\d+\.?\d*|\+|-|\*|\/|\(|\))/g);
+        const tokens = expression.match(/(\d+(\.\d+)?|\+|-|\*|\/|\(|\))/g);
         if (!tokens) return 'Error';
         return (function parse(tokens, pos) {
             function parseExpr(pos) { return parseAddSub(pos); }

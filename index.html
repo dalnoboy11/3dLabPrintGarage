@@ -3,528 +3,1052 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3dLabPrintGarage - Студія 3D Друку в Одесі</title>
+    <meta name="description" content="3dLabPrintGarage — професійна студія 3D друку в Одесі. FDM та смоляний друк: запчастини, корпуси, мініатюри, прототипи. Швидко, якісно, доступно.">
+    <title>3dLabPrintGarage – Студія 3D Друку в Одесі</title>
     <style>
+        /* ===== CSS Variables ===== */
         :root {
+            --brand:    #667eea;
+            --brand-2:  #764ba2;
+            --accent:   #ff006e;
             --bg-section-alt: #f5f5f5;
-            --bg-section: #ffffff;
-            --text-primary: #333333;
-            --text-muted: #555555;
-            --input-bg: #ffffff;
-            --input-border: #dddddd;
-            --card-bg: #f9f9f9;
-            --footer-bg: #333333;
-            --footer-text: #ffffff;
+            --bg-section:     #ffffff;
+            --text-primary:   #1a1a2e;
+            --text-muted:     #666666;
+            --input-bg:       #ffffff;
+            --input-border:   #dddddd;
+            --card-bg:        #f9f9f9;
+            --footer-bg:      #1a1a2e;
+            --footer-text:    #cccccc;
+            --radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.07);
+            --shadow-hover: 0 10px 30px rgba(102,126,234,0.3);
+            --tr: 0.28s ease;
         }
         body.dark-mode {
             --bg-section-alt: #1e1e2e;
-            --bg-section: #16213e;
-            --text-primary: #e0e0e0;
-            --text-muted: #aaaaaa;
-            --input-bg: #2a2a3e;
-            --input-border: #444466;
-            --card-bg: #252540;
-            --footer-bg: #0f0f1a;
-            --footer-text: #cccccc;
+            --bg-section:     #16213e;
+            --text-primary:   #e0e0e0;
+            --text-muted:     #aaaaaa;
+            --input-bg:       #2a2a3e;
+            --input-border:   #444466;
+            --card-bg:        #252540;
+            --footer-bg:      #0a0a1a;
+            --footer-text:    #bbbbbb;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: var(--text-primary); }
-        nav { background: rgba(0,0,0,0.9); padding: 1rem; position: sticky; top: 0; z-index: 100; }
-        nav a { color: #fff; text-decoration: none; margin: 0 1.5rem; font-weight: bold; transition: color 0.3s; }
-        nav a:hover { color: #ff006e; }
-        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 5rem 2rem; text-align: center; }
-        .hero h2 { font-size: 3rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.5rem; margin-bottom: 2rem; }
-        .cta-btn { background: #ff006e; color: white; border: none; padding: 1rem 2rem; font-size: 1rem; border-radius: 5px; cursor: pointer; transition: transform 0.3s; }
-        .cta-btn:hover { transform: scale(1.1); }
-        section { padding: 3rem 2rem; }
-        .gallery { background: var(--bg-section-alt); text-align: center; }
-        .gallery h3, .calculator h3, .about h3, .contact h3 { font-size: 2.5rem; margin-bottom: 2rem; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 1000px; margin: 0 auto; }
-        .gallery-item { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 10px; color: white; text-align: center; transition: transform 0.3s; }
-        .gallery-item:hover { transform: translateY(-10px); }
-        .calculator { background: var(--bg-section); text-align: center; }
-        .calc-form { max-width: 500px; margin: 0 auto; background: var(--card-bg); padding: 2rem; border-radius: 10px; }
-        .input-group { margin-bottom: 1.5rem; text-align: left; }
-        .input-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; color: var(--text-primary); }
-        .input-group input, .input-group select { width: 100%; padding: 0.8rem; border: 2px solid var(--input-border); border-radius: 5px; font-size: 1rem; background: var(--input-bg); color: var(--text-primary); }
-        .result { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 5px; margin: 1rem 0; }
-        .result h4 { font-size: 2rem; margin-top: 0.5rem; }
-        .order-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1rem; width: 100%; font-size: 1rem; border-radius: 5px; cursor: pointer; font-weight: bold; transition: transform 0.3s; }
-        .order-btn:hover { transform: scale(1.05); }
-        .about { background: var(--bg-section-alt); }
-        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto; }
-        .about-text { text-align: left; }
-        .about-text ul { list-style: none; margin-left: 1rem; }
-        .about-text li { margin: 0.5rem 0; line-height: 1.6; }
-        .contact { background: var(--bg-section); }
-        .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0; }
-        .contact-item { background: var(--card-bg); padding: 2rem; border-radius: 10px; color: var(--text-primary); }
-        .contact-item a { color: #667eea; text-decoration: none; font-weight: bold; }
-        .contact-form { max-width: 600px; margin: 2rem auto; background: var(--card-bg); padding: 2rem; border-radius: 10px; }
-        .contact-form input, .contact-form textarea { width: 100%; padding: 0.8rem; margin: 1rem 0; border: 2px solid var(--input-border); border-radius: 5px; font-family: Arial; background: var(--input-bg); color: var(--text-primary); }
-        .submit-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1rem; width: 100%; font-size: 1rem; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .submit-btn:hover { transform: scale(1.05); }
-        footer { background: var(--footer-bg); color: var(--footer-text); text-align: center; padding: 2rem; }
 
-        /* Chat Widget */
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg-section);
+            color: var(--text-primary);
+            line-height: 1.65;
+            transition: background var(--tr), color var(--tr);
+        }
+
+        /* ===== Navigation ===== */
+        nav {
+            background: rgba(10,10,30,0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 0.7rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            text-decoration: none;
+            color: white;
+            font-weight: 800;
+            font-size: 1.05rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.1rem;
+            margin-left: auto;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.82);
+            text-decoration: none;
+            padding: 0.4rem 0.85rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: color var(--tr), background var(--tr);
+        }
+        .nav-links a:hover { color: white; background: rgba(255,255,255,0.12); }
+        .dark-mode-btn {
+            background: none;
+            border: 1.5px solid rgba(255,255,255,0.4);
+            border-radius: 20px;
+            color: white;
+            padding: 0.3rem 0.85rem;
+            font-size: 0.82rem;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: background var(--tr), border-color var(--tr);
+        }
+        .dark-mode-btn:hover { background: rgba(255,255,255,0.14); border-color: white; }
+        .nav-hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0.2rem;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.6;
+            background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.06) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 20%, rgba(255,255,255,0.04) 0%, transparent 40%);
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.5px;
+        }
+        .hero-tagline { font-size: clamp(1.05rem, 2.5vw, 1.4rem); opacity: 0.92; margin-bottom: 0.4rem; }
+        .hero-sub    { font-size: 0.97rem; opacity: 0.72; margin-bottom: 2.2rem; letter-spacing: 0.5px; }
+        .cta-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform var(--tr), box-shadow var(--tr);
+            box-shadow: 0 4px 20px rgba(255,0,110,0.4);
+        }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(255,0,110,0.55); }
+
+        /* ===== Section common ===== */
+        section { padding: 4.5rem 2rem; }
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.7rem, 3vw, 2.3rem);
+            font-weight: 800;
+            margin-bottom: 0.4rem;
+            color: var(--text-primary);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 56px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--brand), var(--brand-2));
+            border-radius: 2px;
+            margin: 0.6rem auto 2.8rem;
+        }
+
+        /* ===== Gallery ===== */
+        .gallery { background: var(--bg-section-alt); }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+            gap: 1.2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .gallery-item {
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+            padding: 1.8rem 1rem 1.5rem;
+            border-radius: var(--radius);
+            color: white;
+            text-align: center;
+            font-size: 0.88rem;
+            font-weight: 600;
+            line-height: 1.4;
+            cursor: default;
+            transition: transform var(--tr), box-shadow var(--tr);
+        }
+        .gallery-item .gi-icon { font-size: 2.2rem; display: block; margin-bottom: 0.6rem; }
+        .gallery-item:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+
+        /* ===== Calculator ===== */
+        .calculator { background: var(--bg-section); }
+        .calc-form {
+            max-width: 520px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .input-group { margin-bottom: 1.4rem; }
+        .input-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.88rem; color: var(--text-primary); }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 0.97rem;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color var(--tr);
+            font-family: inherit;
+        }
+        .input-group input:focus, .input-group select:focus { border-color: var(--brand); }
+        .result {
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+            color: white;
+            padding: 1.4rem 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0 1.2rem;
+        }
+        .result p { font-size: 0.85rem; opacity: 0.88; }
+        .result h4 { font-size: 1.9rem; margin: 0.25rem 0; font-weight: 800; }
+        .result-breakdown { font-size: 0.8rem; margin-top: 0.6rem; opacity: 0.88; display: none; }
+        .result-breakdown p { margin-bottom: 0.15rem; }
+        .order-btn {
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+            color: white;
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: transform var(--tr), box-shadow var(--tr);
+        }
+        .order-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+        /* ===== About ===== */
+        .about { background: var(--bg-section-alt); }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .about-card {
+            background: var(--card-bg);
+            padding: 1.8rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .about-card h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem; }
+        .about-card ul { list-style: none; }
+        .about-card li {
+            padding: 0.45rem 0;
+            border-bottom: 1px solid var(--input-border);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-primary);
+        }
+        .about-card li:last-child { border-bottom: none; }
+
+        /* ===== Contact ===== */
+        .contact { background: var(--bg-section); }
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto 2.5rem;
+        }
+        .contact-card {
+            background: var(--card-bg);
+            padding: 1.8rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .contact-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.8rem; }
+        .contact-card p { margin: 0.4rem 0; font-size: 0.9rem; color: var(--text-muted); }
+        .contact-card a { color: var(--brand); text-decoration: none; font-weight: 600; }
+        .contact-card a:hover { text-decoration: underline; }
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .contact-form > h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.4rem; }
+        .form-field { margin-bottom: 1rem; }
+        .form-field label {
+            display: block;
+            font-size: 0.83rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .form-field input, .form-field textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--input-border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color var(--tr);
+            resize: vertical;
+        }
+        .form-field input:focus, .form-field textarea:focus { border-color: var(--brand); }
+        .form-field .error-msg { display: none; font-size: 0.78rem; color: #e53e3e; margin-top: 0.25rem; }
+        .form-field.has-error input, .form-field.has-error textarea { border-color: #e53e3e; }
+        .form-field.has-error .error-msg { display: block; }
+        .char-counter { text-align: right; font-size: 0.76rem; color: var(--text-muted); margin-top: 0.2rem; }
+        .submit-btn {
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+            color: white;
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: transform var(--tr), box-shadow var(--tr);
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        .form-success {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        body.dark-mode .form-success { background: #1d3a26; color: #75d894; border-color: #2a6040; }
+
+        /* ===== Footer ===== */
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 2.5rem 2rem 2rem;
+            text-align: center;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.88rem; transition: color var(--tr); }
+        .footer-links a:hover { color: white; }
+        footer p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+
+        /* ===== Chat Widget ===== */
         .chat-toggle-btn {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            width: 60px;
-            height: 60px;
+            width: 58px;
+            height: 58px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
             color: white;
             border: none;
-            font-size: 1.8rem;
+            font-size: 1.55rem;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 4px 20px rgba(102,126,234,0.5);
             z-index: 1000;
-            transition: transform 0.3s;
+            transition: transform var(--tr), box-shadow var(--tr);
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .chat-toggle-btn:hover { transform: scale(1.1); }
-
+        .chat-toggle-btn:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(102,126,234,0.65); }
         .chat-widget {
             position: fixed;
-            bottom: 6rem;
+            bottom: 6.2rem;
             right: 2rem;
-            width: 340px;
-            max-height: 480px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            width: 355px;
+            max-height: 510px;
+            background: var(--bg-section);
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.22);
             z-index: 999;
             display: none;
             flex-direction: column;
             overflow: hidden;
+            transition: background var(--tr);
         }
         .chat-widget.open { display: flex; }
-
         .chat-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
             color: white;
-            padding: 1rem 1.5rem;
+            padding: 1rem 1.2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0;
         }
-        .chat-header h4 { font-size: 1rem; margin: 0; }
-        .chat-header span { font-size: 0.8rem; opacity: 0.85; }
-        .chat-close { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; padding: 0 0.2rem; }
-
+        .chat-header-info h4 { font-size: 0.93rem; margin: 0 0 0.1rem; }
+        .chat-header-info span { font-size: 0.74rem; opacity: 0.82; }
+        .chat-online-dot {
+            display: inline-block;
+            width: 8px; height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.35} }
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0.75;
+            transition: opacity var(--tr);
+            line-height: 1;
+            padding: 0.1rem 0.2rem;
+        }
+        .chat-close:hover { opacity: 1; }
         .chat-messages {
             flex: 1;
             overflow-y: auto;
             padding: 1rem;
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.7rem;
             min-height: 200px;
         }
         .chat-msg {
-            max-width: 80%;
+            max-width: 83%;
             padding: 0.6rem 0.9rem;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            border-radius: 14px;
+            font-size: 0.87rem;
+            line-height: 1.5;
             word-break: break-word;
         }
         .chat-msg.bot {
-            background: #f0f0f0;
+            background: var(--bg-section-alt);
+            color: var(--text-primary);
             align-self: flex-start;
             border-bottom-left-radius: 4px;
         }
         .chat-msg.user {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
             color: white;
             align-self: flex-end;
             border-bottom-right-radius: 4px;
         }
-        .chat-msg img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-top: 0.4rem;
-            display: block;
-        }
-
-        .chat-input-area {
-            border-top: 1px solid #eee;
-            padding: 0.8rem;
+        .chat-msg img { max-width: 100%; border-radius: 8px; margin-top: 0.3rem; display: block; }
+        .chat-typing {
             display: flex;
-            gap: 0.5rem;
             align-items: center;
-            background: #fafafa;
+            gap: 5px;
+            padding: 0.7rem 0.9rem;
+            background: var(--bg-section-alt);
+            border-radius: 14px;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+        .chat-typing span {
+            width: 7px; height: 7px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            animation: bounce-dot 1.3s infinite;
+        }
+        .chat-typing span:nth-child(2) { animation-delay: 0.22s; }
+        .chat-typing span:nth-child(3) { animation-delay: 0.44s; }
+        @keyframes bounce-dot { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-7px)} }
+        .chat-input-area {
+            border-top: 1px solid var(--input-border);
+            padding: 0.65rem;
+            display: flex;
+            gap: 0.4rem;
+            align-items: center;
+            background: var(--card-bg);
+            flex-shrink: 0;
         }
         .chat-input-area input[type="text"] {
             flex: 1;
-            padding: 0.6rem 0.9rem;
-            border: 2px solid #ddd;
+            padding: 0.5rem 0.9rem;
+            border: 2px solid var(--input-border);
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.87rem;
             outline: none;
-            font-family: Arial;
+            font-family: inherit;
+            background: var(--input-bg);
+            color: var(--text-primary);
+            transition: border-color var(--tr);
         }
-        .chat-input-area input[type="text"]:focus { border-color: #667eea; }
-        .chat-send-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        .chat-input-area input[type="text"]:focus { border-color: var(--brand); }
+        .chat-send-btn, .chat-img-btn {
+            width: 36px; height: 36px;
+            border-radius: 50%;
             border: none;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
             cursor: pointer;
-            font-size: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s;
             flex-shrink: 0;
+            transition: transform var(--tr);
         }
-        .chat-send-btn:hover { transform: scale(1.1); }
-        .chat-img-btn {
-            background: none;
-            border: 2px solid #ddd;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: border-color 0.2s;
-            flex-shrink: 0;
-        }
-        .chat-img-btn:hover { border-color: #667eea; }
+        .chat-send-btn { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: white; font-size: 0.9rem; }
+        .chat-img-btn  { background: var(--input-bg); border: 2px solid var(--input-border); font-size: 1rem; color: var(--text-primary); }
+        .chat-send-btn:hover, .chat-img-btn:hover { transform: scale(1.12); }
         #chatImageInput { display: none; }
 
-        /* Dark mode overrides for chat widget */
-        body.dark-mode .chat-widget { background: var(--bg-section); }
-        body.dark-mode .chat-msg.bot { background: #2a2a3e; color: var(--text-primary); }
-        body.dark-mode .chat-input-area { background: var(--card-bg); border-top-color: #444; }
-        body.dark-mode .chat-input-area input[type="text"] { background: var(--input-bg); color: var(--text-primary); border-color: var(--input-border); }
-        body.dark-mode .chat-img-btn { border-color: var(--input-border); color: var(--text-primary); }
-        body.dark-mode .gallery h3,
-        body.dark-mode .calculator h3,
-        body.dark-mode .about h3,
-        body.dark-mode .contact h3,
-        body.dark-mode .about-text,
-        body.dark-mode .contact-item h4,
-        body.dark-mode .contact-form h4 { color: var(--text-primary); }
-
-        /* Dark mode toggle button */
-        .dark-mode-btn {
-            background: none;
-            border: 2px solid rgba(255,255,255,0.6);
-            border-radius: 20px;
-            color: white;
-            padding: 0.3rem 0.9rem;
-            font-size: 0.85rem;
+        /* ===== Back to top ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 6.8rem;
+            left: 2rem;
+            width: 44px; height: 44px;
+            background: var(--card-bg);
+            border: 2px solid var(--input-border);
+            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 1.1rem;
             cursor: pointer;
-            float: right;
-            transition: background 0.3s, border-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--tr), transform var(--tr);
+            z-index: 900;
+            box-shadow: var(--shadow);
         }
-        .dark-mode-btn:hover { background: rgba(255,255,255,0.15); border-color: white; }
+        .back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .back-to-top:hover { transform: translateY(-3px); }
 
-        @media (max-width: 768px) {
+        /* ===== Fade-in animation ===== */
+        .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+        .fade-in.visible { opacity: 1; transform: none; }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 700px) {
+            nav { flex-wrap: wrap; padding: 0.7rem 1rem; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                align-items: flex-start;
+                margin-left: 0;
+                gap: 0;
+                padding: 0.4rem 0;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a { padding: 0.6rem 0.2rem; width: 100%; border-radius: 0; font-size: 0.93rem; }
+            .dark-mode-btn { order: 2; margin-left: auto; }
+            .nav-hamburger { display: block; order: 3; }
+            .hero { padding: 4rem 1.5rem 3.5rem; }
+            section { padding: 3rem 1.5rem; }
             .about-content { grid-template-columns: 1fr; }
-            .hero h2 { font-size: 2rem; }
-            nav a { margin: 0 0.7rem; font-size: 0.9rem; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
             .chat-widget { width: calc(100vw - 2rem); right: 1rem; bottom: 5rem; }
             .chat-toggle-btn { right: 1rem; bottom: 1rem; }
-            .dark-mode-btn { font-size: 0.75rem; padding: 0.25rem 0.6rem; }
+            .back-to-top { left: 1rem; bottom: 6.2rem; }
         }
     </style>
 </head>
 <body>
-    <nav>
+
+<!-- ===== Navigation ===== -->
+<nav aria-label="Основна навігація">
+    <a href="#home" class="nav-logo" aria-label="3dLabPrintGarage — на головну">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+                <linearGradient id="navLg" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#667eea"/>
+                    <stop offset="100%" stop-color="#764ba2"/>
+                </linearGradient>
+            </defs>
+            <polygon points="16,2 29,9.5 29,22.5 16,30 3,22.5 3,9.5" fill="url(#navLg)" opacity="0.92"/>
+            <polygon points="16,2 29,9.5 16,17 3,9.5" fill="white" opacity="0.18"/>
+            <polygon points="16,17 29,9.5 29,22.5 16,30" fill="white" opacity="0.07"/>
+            <line x1="16" y1="17" x2="16" y2="30" stroke="white" stroke-opacity="0.18" stroke-width="1"/>
+        </svg>
+        3dLabPrintGarage
+    </a>
+
+    <button class="nav-hamburger" id="navHamburger" aria-label="Відкрити меню" aria-expanded="false" aria-controls="navLinks">&#9776;</button>
+
+    <div class="nav-links" id="navLinks">
         <a href="#gallery">Роботи</a>
         <a href="#calculator">Калькулятор</a>
         <a href="#about">Про нас</a>
         <a href="#contact">Контакти</a>
-        <button class="dark-mode-btn" id="darkModeBtn" aria-label="Перемкнути темний режим" title="Темний / Світлий режим">🌙 Темний режим</button>
-    </nav>
-
-    <section class="hero">
-        <h2>3dLabPrintGarage</h2>
-        <p>Втілюємо ваші ідеї в реальність</p>
-        <p style="font-size: 1.1rem; margin: 1rem 0;">Професійна 3D друк. Швидко. Якісно. Доступно.</p>
-        <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Замовити</button>
-    </section>
-
-    <section id="gallery" class="gallery">
-        <h3>Наші роботи</h3>
-        <div class="gallery-grid">
-            <div class="gallery-item">🔧 Функціональні запчастини</div>
-            <div class="gallery-item">📦 Корпуси для електроніки</div>
-            <div class="gallery-item">🎯 Прототипування</div>
-            <div class="gallery-item">🛠️ DIY проекти</div>
-            <div class="gallery-item">🎨 Мініатюри та фігурки</div>
-            <div class="gallery-item">🚗 Авто запчастини</div>
-            <div class="gallery-item">🍣 Харчові сувеніри</div>
-        </div>
-    </section>
-
-    <section id="calculator" class="calculator">
-        <h3>Калькулятор вартості</h3>
-        <div class="calc-form">
-            <div class="input-group">
-                <label for="weight">Вага деталі (грам):</label>
-                <input type="number" id="weight" placeholder="Приклад: 50" min="1" oninput="calculatePrice()">
-            </div>
-            <div class="input-group">
-                <label for="time">Час друку (години):</label>
-                <input type="number" id="time" placeholder="Приклад: 2.5" min="0.1" step="0.1" oninput="calculatePrice()">
-            </div>
-            <div class="input-group">
-                <label for="material">Матеріал:</label>
-                <select id="material" onchange="calculatePrice()">
-                    <option value="pla">PLA - 5 грн/г</option>
-                    <option value="petg">PETG - 7 грн/г</option>
-                    <option value="abs">ABS - 6 грн/г</option>
-                    <option value="resin">Смола - 3 грн/мл</option>
-                </select>
-            </div>
-            <div class="result">
-                <p>Орієнтовна вартість:</p>
-                <h4 id="price">0 грн</h4>
-                <div id="priceBreakdown" style="font-size:0.85rem; margin-top:0.6rem; opacity:0.9; text-align:left; display:none;">
-                    <p id="breakdownMaterial"></p>
-                    <p id="breakdownElec"></p>
-                    <p id="breakdownBase">Базова плата: 50 грн</p>
-                </div>
-            </div>
-            <button class="order-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Замовити</button>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <h3>Про нашу студію</h3>
-        <div class="about-content">
-            <div class="about-text">
-                <h4>💻 Обладнання</h4>
-                <ul>
-                    <li><strong>2x Bambulabs A1</strong> - Високошвидкісні принтери з точною деталізацією</li>
-                    <li><strong>Elegoo Resin Carbon 1</strong> - Смоляний принтер для найдрібніших деталей</li>
-                    <li><strong>Artillery Sidewinder X3+</strong> - Велика будівельна платформа</li>
-                    <li><strong>2x Voxelab Aquila X2</strong> - Надійні та ефективні принтери</li>
-                </ul>
-            </div>
-            <div class="about-text">
-                <h4>✨ Що ми робимо</h4>
-                <ul>
-                    <li>✅ Друк моделей з відкритих джерел</li>
-                    <li>✅ Функціональні запчастини та корпуси</li>
-                    <li>✅ DIY компоненти для електроніки</li>
-                    <li>✅ Прототипування та малі серії</li>
-                    <li>✅ Консультації з оптимізації</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <h3>Зв'яжіться з нами</h3>
-        <div class="contact-info">
-            <div class="contact-item">
-                <h4>📞 Телефони</h4>
-                <p><a href="tel:+380931612110">+38 (093) 161-21-10</a></p>
-                <p><a href="tel:+380952892877">+38 (095) 289-28-77</a></p>
-                <p><a href="tel:+380677177287">+38 (067) 717-72-87</a></p>
-            </div>
-            <div class="contact-item">
-                <h4>📍 Місцезнаходження</h4>
-                <p>Одеса, Україна</p>
-                <p>Доставка по всій Україні та за кордон</p>
-            </div>
-            <div class="contact-item">
-                <h4>🔗 Соціальні мережі</h4>
-                <p><a href="https://instagram.com/3druk_odesa" target="_blank">@3druk_odesa</a></p>
-                <p><a href="https://instagram.com/3dlabprintgarage" target="_blank">@3dlabprintgarage</a></p>
-                <p><a href="https://x.com/3dlabprintfcgy" target="_blank">@3dlabprintfcgy</a></p>
-            </div>
-        </div>
-        <div class="contact-form">
-            <h4>Залиште повідомлення</h4>
-            <form onsubmit="handleSubmit(event)">
-                <input type="text" placeholder="Ваше ім'я" required>
-                <input type="email" placeholder="Email" required>
-                <textarea placeholder="Опис вашого проекту" rows="4" required></textarea>
-                <button type="submit" class="submit-btn">Відправити</button>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 3dLabPrintGarage. Всі права захищені.</p>
-    </footer>
-
-    <!-- Chat Widget -->
-    <button class="chat-toggle-btn" id="chatToggle" title="Відкрити чат" aria-label="Відкрити чат">🌙</button>
-
-    <div class="chat-widget" id="chatWidget" role="dialog" aria-label="Чат підтримки">
-        <div class="chat-header">
-            <div>
-                <h4>💬 Чат підтримки</h4>
-                <span>Поставте питання або надішліть фото</span>
-            </div>
-            <button class="chat-close" id="chatClose" aria-label="Закрити чат">✕</button>
-        </div>
-        <div class="chat-messages" id="chatMessages"></div>
-        <div class="chat-input-area">
-            <input type="file" id="chatImageInput" accept="image/*" aria-label="Прикріпити зображення">
-            <button class="chat-img-btn" id="chatImgBtn" title="Надіслати фото" aria-label="Прикріпити фото">📷</button>
-            <input type="text" id="chatInput" placeholder="Напишіть повідомлення…" autocomplete="off" aria-label="Повідомлення">
-            <button class="chat-send-btn" id="chatSendBtn" title="Надіслати" aria-label="Надіслати">➤</button>
-        </div>
     </div>
 
-    <script>
-        // --- Price calculator ---
-        function calculatePrice() {
-            const weight = parseFloat(document.getElementById('weight').value) || 0;
-            const time = parseFloat(document.getElementById('time').value) || 0;
-            const material = document.getElementById('material').value;
+    <button class="dark-mode-btn" id="darkModeBtn" aria-label="Перемкнути темний режим">&#127769; Темний режим</button>
+</nav>
 
-            let pricePerGram = 0;
-            let materialLabel = '';
-            let materialUnit = 'г';
-            if (material === 'pla')   { pricePerGram = 5; materialLabel = 'PLA (5 грн/г)'; }
-            else if (material === 'petg') { pricePerGram = 7; materialLabel = 'PETG (7 грн/г)'; }
-            else if (material === 'abs')  { pricePerGram = 6; materialLabel = 'ABS (6 грн/г)'; }
-            else if (material === 'resin'){ pricePerGram = 3; materialLabel = 'Смола (3 грн/мл)'; materialUnit = 'мл'; }
+<!-- ===== Hero ===== -->
+<section id="home" class="hero" aria-label="Головний банер">
+    <div class="hero-content">
+        <h1>3dLabPrintGarage</h1>
+        <p class="hero-tagline">Втілюємо ваші ідеї в реальність</p>
+        <p class="hero-sub">Професійний 3D друк &middot; Швидко &middot; Якісно &middot; Доступно</p>
+        <button class="cta-btn" id="heroOrderBtn">Замовити зараз</button>
+    </div>
+</section>
 
-            const materialCost = weight * pricePerGram;
-            const electricityCost = time * 3;
-            const totalCost = materialCost + electricityCost + 50;
+<!-- ===== Gallery ===== -->
+<section id="gallery" class="gallery">
+    <h2 class="section-title">Наші роботи</h2>
+    <div class="gallery-grid">
+        <div class="gallery-item fade-in"><span class="gi-icon">&#128295;</span>Функціональні запчастини</div>
+        <div class="gallery-item fade-in"><span class="gi-icon">&#128230;</span>Корпуси для електроніки</div>
+        <div class="gallery-item fade-in"><span class="gi-icon">&#127919;</span>Прототипування</div>
+        <div class="gallery-item fade-in"><span class="gi-icon">&#128296;</span>DIY проекти</div>
+        <div class="gallery-item fade-in"><span class="gi-icon">&#127912;</span>Мініатюри та фігурки</div>
+        <div class="gallery-item fade-in"><span class="gi-icon">&#128663;</span>Авто запчастини</div>
+        <div class="gallery-item fade-in"><span class="gi-icon">&#127843;</span>Харчові сувеніри</div>
+    </div>
+</section>
 
-            document.getElementById('price').textContent = Math.round(totalCost) + ' грн';
+<!-- ===== Calculator ===== -->
+<section id="calculator" class="calculator">
+    <h2 class="section-title">Калькулятор вартості</h2>
+    <div class="calc-form">
+        <div class="input-group">
+            <label for="weight">Вага деталі (грам):</label>
+            <input type="number" id="weight" name="weight" placeholder="Приклад: 50" min="1" max="9999" autocomplete="off">
+        </div>
+        <div class="input-group">
+            <label for="time">Час друку (години):</label>
+            <input type="number" id="time" name="time" placeholder="Приклад: 2.5" min="0.1" max="999" step="0.1" autocomplete="off">
+        </div>
+        <div class="input-group">
+            <label for="material">Матеріал:</label>
+            <select id="material" name="material">
+                <option value="pla">PLA &#8212; 5 грн/г</option>
+                <option value="petg">PETG &#8212; 7 грн/г</option>
+                <option value="abs">ABS &#8212; 6 грн/г</option>
+                <option value="resin">Смола &#8212; 3 грн/мл</option>
+            </select>
+        </div>
+        <div class="result">
+            <p>Орієнтовна вартість:</p>
+            <h4 id="price">Введіть дані вище</h4>
+            <div class="result-breakdown" id="priceBreakdown">
+                <p id="breakdownMaterial"></p>
+                <p id="breakdownElec"></p>
+                <p id="breakdownBase">Базова плата: 50 грн</p>
+            </div>
+        </div>
+        <button class="order-btn" id="calcOrderBtn">Замовити</button>
+    </div>
+</section>
 
-            const breakdown = document.getElementById('priceBreakdown');
-            if (weight > 0 || time > 0) {
-                document.getElementById('breakdownMaterial').textContent =
-                    'Матеріал (' + materialLabel + ' × ' + weight + ' ' + materialUnit + '): ' + Math.round(materialCost) + ' грн';
-                document.getElementById('breakdownElec').textContent =
-                    'Електроенергія (3 грн/год × ' + time + ' год): ' + Math.round(electricityCost) + ' грн';
-                breakdown.style.display = 'block';
-            } else {
-                breakdown.style.display = 'none';
-            }
+<!-- ===== About ===== -->
+<section id="about" class="about">
+    <h2 class="section-title">Про нашу студію</h2>
+    <div class="about-content">
+        <div class="about-card fade-in">
+            <h4>&#128187; Обладнання</h4>
+            <ul>
+                <li><strong>2&times; Bambu Lab A1</strong> &#8212; Високошвидкісні принтери з точною деталізацією</li>
+                <li><strong>Elegoo Resin Carbon 1</strong> &#8212; Смоляний принтер для найдрібніших деталей</li>
+                <li><strong>Artillery Sidewinder X3+</strong> &#8212; Велика будівельна платформа</li>
+                <li><strong>2&times; Voxelab Aquila X2</strong> &#8212; Надійні та ефективні принтери</li>
+            </ul>
+        </div>
+        <div class="about-card fade-in">
+            <h4>&#10024; Що ми робимо</h4>
+            <ul>
+                <li>&#9989; Друк моделей з відкритих джерел</li>
+                <li>&#9989; Функціональні запчастини та корпуси</li>
+                <li>&#9989; DIY компоненти для електроніки</li>
+                <li>&#9989; Прототипування та малі серії</li>
+                <li>&#9989; Консультації з оптимізації</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact" class="contact">
+    <h2 class="section-title">Зв'яжіться з нами</h2>
+    <div class="contact-info">
+        <div class="contact-card fade-in">
+            <h4>&#128222; Телефони</h4>
+            <p><a href="tel:+380931612110">+38 (093) 161-21-10</a></p>
+            <p><a href="tel:+380952892877">+38 (095) 289-28-77</a></p>
+            <p><a href="tel:+380677177287">+38 (067) 717-72-87</a></p>
+        </div>
+        <div class="contact-card fade-in">
+            <h4>&#128205; Місцезнаходження</h4>
+            <p>Одеса, Україна</p>
+            <p>Доставка по всій Україні та за кордон &#128666;</p>
+        </div>
+        <div class="contact-card fade-in">
+            <h4>&#128279; Соціальні мережі</h4>
+            <p><a href="https://instagram.com/3druk_odesa" target="_blank" rel="noopener noreferrer">&#128247; @3druk_odesa</a></p>
+            <p><a href="https://instagram.com/3dlabprintgarage" target="_blank" rel="noopener noreferrer">&#128247; @3dlabprintgarage</a></p>
+            <p><a href="https://x.com/3dlabprintfcgy" target="_blank" rel="noopener noreferrer">&#x1F426; @3dlabprintfcgy</a></p>
+        </div>
+    </div>
+    <div class="contact-form fade-in">
+        <h4>Залиште повідомлення</h4>
+        <form id="contactForm" novalidate>
+            <div class="form-field" id="fieldName">
+                <label for="contactName">Ваше ім'я *</label>
+                <input type="text" id="contactName" name="name" placeholder="Іван Петренко" required autocomplete="name" maxlength="100">
+                <span class="error-msg">Будь ласка, вкажіть ваше ім'я (мінімум 2 символи).</span>
+            </div>
+            <div class="form-field" id="fieldEmail">
+                <label for="contactEmail">Email *</label>
+                <input type="email" id="contactEmail" name="email" placeholder="ivan@example.com" required autocomplete="email" maxlength="200">
+                <span class="error-msg">Введіть коректну email-адресу.</span>
+            </div>
+            <div class="form-field" id="fieldMessage">
+                <label for="contactMessage">Опис проєкту *</label>
+                <textarea id="contactMessage" name="message" placeholder="Опишіть, що вам потрібно надрукувати&#8230;" rows="4" required maxlength="1000"></textarea>
+                <div class="char-counter"><span id="charCount">0</span>/1000</div>
+                <span class="error-msg">Будь ласка, опишіть ваш проєкт (мінімум 10 символів).</span>
+            </div>
+            <button type="submit" class="submit-btn" id="submitBtn">Відправити повідомлення</button>
+            <div class="form-success" id="formSuccess">&#9989; Дякуємо! Ми зв'яжемося з вами найближчим часом.</div>
+        </form>
+    </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+    <div class="footer-links">
+        <a href="#home">Головна</a>
+        <a href="#gallery">Роботи</a>
+        <a href="#calculator">Калькулятор</a>
+        <a href="#about">Про нас</a>
+        <a href="#contact">Контакти</a>
+    </div>
+    <p>&copy; 2026 3dLabPrintGarage. Всі права захищені.</p>
+</footer>
+
+<!-- ===== Chat Widget ===== -->
+<button class="chat-toggle-btn" id="chatToggle" aria-label="Відкрити чат підтримки" aria-expanded="false">&#128172;</button>
+
+<div class="chat-widget" id="chatWidget" role="dialog" aria-label="Чат підтримки" aria-modal="true">
+    <div class="chat-header">
+        <div class="chat-header-info">
+            <h4><span class="chat-online-dot" aria-hidden="true"></span>Чат підтримки</h4>
+            <span>Поставте питання або надішліть фото</span>
+        </div>
+        <button class="chat-close" id="chatClose" aria-label="Закрити чат">&#10005;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages" aria-live="polite" aria-atomic="false"></div>
+    <div class="chat-input-area">
+        <input type="file" id="chatImageInput" accept="image/*" aria-label="Прикріпити зображення">
+        <button class="chat-img-btn" id="chatImgBtn" title="Надіслати фото" aria-label="Прикріпити фото">&#128247;</button>
+        <input type="text" id="chatInput" placeholder="Напишіть повідомлення&#8230;" autocomplete="off" aria-label="Повідомлення" maxlength="500">
+        <button class="chat-send-btn" id="chatSendBtn" aria-label="Надіслати">&#9658;</button>
+    </div>
+</div>
+
+<!-- ===== Back to top ===== -->
+<button class="back-to-top" id="backToTop" aria-label="Повернутися вгору" title="Повернутися вгору">&#8593;</button>
+
+<script src="js/script.js"></script>
+<script>
+    // ===== Calculator =====
+    var MATERIALS = {
+        pla:   { price: 5, label: 'PLA (5 грн/г)',    unit: 'г'  },
+        petg:  { price: 7, label: 'PETG (7 грн/г)',   unit: 'г'  },
+        abs:   { price: 6, label: 'ABS (6 грн/г)',    unit: 'г'  },
+        resin: { price: 3, label: 'Смола (3 грн/мл)', unit: 'мл' }
+    };
+
+    function calculatePrice() {
+        var weight   = Math.max(0, parseFloat(document.getElementById('weight').value)   || 0);
+        var time     = Math.max(0, parseFloat(document.getElementById('time').value)     || 0);
+        var material = document.getElementById('material').value;
+        var mat      = MATERIALS[material];
+
+        var materialCost    = weight * mat.price;
+        var electricityCost = time * 3;
+        var totalCost       = materialCost + electricityCost + 50;
+
+        var priceEl   = document.getElementById('price');
+        var breakdown = document.getElementById('priceBreakdown');
+
+        if (weight > 0 || time > 0) {
+            priceEl.textContent = Math.round(totalCost) + ' грн';
+            document.getElementById('breakdownMaterial').textContent =
+                'Матеріал (' + mat.label + ' \u00d7 ' + weight + ' ' + mat.unit + '): ' + Math.round(materialCost) + ' грн';
+            document.getElementById('breakdownElec').textContent =
+                'Електроенергія (3 грн/год \u00d7 ' + time + ' год): ' + Math.round(electricityCost) + ' грн';
+            breakdown.style.display = 'block';
+        } else {
+            priceEl.textContent = 'Введіть дані вище';
+            breakdown.style.display = 'none';
         }
+    }
 
-        function handleSubmit(e) {
-            e.preventDefault();
-            alert('Дякуємо за повідомлення! Ми звернемося до вас найближчим часом.');
+    document.getElementById('weight').addEventListener('input', calculatePrice);
+    document.getElementById('time').addEventListener('input', calculatePrice);
+    document.getElementById('material').addEventListener('change', calculatePrice);
+
+    document.getElementById('heroOrderBtn').addEventListener('click', function() {
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    });
+    document.getElementById('calcOrderBtn').addEventListener('click', function() {
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // ===== Contact form =====
+    var msgTextarea = document.getElementById('contactMessage');
+    var charCount   = document.getElementById('charCount');
+
+    msgTextarea.addEventListener('input', function() {
+        charCount.textContent = msgTextarea.value.length;
+    });
+
+    function setFieldError(fieldId, hasError) {
+        document.getElementById(fieldId).classList.toggle('has-error', hasError);
+    }
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var nameVal  = document.getElementById('contactName').value.trim();
+        var emailVal = document.getElementById('contactEmail').value.trim();
+        var msgVal   = document.getElementById('contactMessage').value.trim();
+        var emailRe  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        setFieldError('fieldName',    nameVal.length < 2);
+        setFieldError('fieldEmail',   !emailRe.test(emailVal));
+        setFieldError('fieldMessage', msgVal.length < 10);
+
+        if (nameVal.length < 2 || !emailRe.test(emailVal) || msgVal.length < 10) return;
+
+        var btn     = document.getElementById('submitBtn');
+        var success = document.getElementById('formSuccess');
+        btn.disabled  = true;
+        btn.textContent = 'Відправляємо\u2026';
+
+        setTimeout(function() {
             e.target.reset();
-        }
+            charCount.textContent = '0';
+            btn.disabled = false;
+            btn.textContent = 'Відправити повідомлення';
+            success.style.display = 'block';
+            setTimeout(function() { success.style.display = 'none'; }, 6000);
+        }, 800);
+    });
 
-        // --- Dark mode toggle ---
-        const darkModeBtn = document.getElementById('darkModeBtn');
-        function applyDarkMode(isDark) {
-            document.body.classList.toggle('dark-mode', isDark);
-            darkModeBtn.textContent = isDark ? '☀️ Світлий режим' : '🌙 Темний режим';
-            darkModeBtn.title = isDark ? 'Перемкнути на світлий режим' : 'Перемкнути на темний режим';
-        }
-        // Restore preference from localStorage
-        const savedDark = localStorage.getItem('darkMode') === 'true';
-        applyDarkMode(savedDark);
-        darkModeBtn.addEventListener('click', () => {
-            const isDark = !document.body.classList.contains('dark-mode');
-            applyDarkMode(isDark);
-            localStorage.setItem('darkMode', isDark);
+    // ===== Dark mode =====
+    var darkModeBtn = document.getElementById('darkModeBtn');
+    function applyDarkMode(isDark) {
+        document.body.classList.toggle('dark-mode', isDark);
+        darkModeBtn.textContent = isDark ? '\u2600\ufe0f Світлий режим' : '\ud83c\udf19 Темний режим';
+        darkModeBtn.title = isDark ? 'Перемкнути на світлий режим' : 'Перемкнути на темний режим';
+    }
+    applyDarkMode(localStorage.getItem('darkMode') === 'true');
+    darkModeBtn.addEventListener('click', function() {
+        var isDark = !document.body.classList.contains('dark-mode');
+        applyDarkMode(isDark);
+        localStorage.setItem('darkMode', isDark);
+    });
+
+    // ===== Mobile hamburger =====
+    var navHamburger = document.getElementById('navHamburger');
+    var navLinksEl   = document.getElementById('navLinks');
+    navHamburger.addEventListener('click', function() {
+        var isOpen = navLinksEl.classList.toggle('open');
+        navHamburger.setAttribute('aria-expanded', isOpen);
+        navHamburger.innerHTML = isOpen ? '&#10005;' : '&#9776;';
+    });
+    navLinksEl.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            navLinksEl.classList.remove('open');
+            navHamburger.innerHTML = '&#9776;';
+            navHamburger.setAttribute('aria-expanded', 'false');
         });
+    });
 
-        // --- Chat widget ---
-        const chatToggle = document.getElementById('chatToggle');
-        const chatWidget = document.getElementById('chatWidget');
-        const chatClose = document.getElementById('chatClose');
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const chatSendBtn = document.getElementById('chatSendBtn');
-        const chatImgBtn = document.getElementById('chatImgBtn');
-        const chatImageInput = document.getElementById('chatImageInput');
+    // ===== Back to top =====
+    var backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', function() {
+        backToTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-        const BOT_GREETING = 'Привіт! 👋 Я можу відповісти на ваші запитання або прийняти фото вашого проєкту. Як ми можемо допомогти?';
-        const BOT_REPLY_DELAY = 700;
+    // ===== Fade-in on scroll =====
+    var fadeEls = document.querySelectorAll('.fade-in');
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        fadeEls.forEach(function(el) { io.observe(el); });
+    } else {
+        fadeEls.forEach(function(el) { el.classList.add('visible'); });
+    }
 
-        function addMessage(text, type, imgSrc) {
-            const msg = document.createElement('div');
-            msg.classList.add('chat-msg', type);
-            if (text) msg.textContent = text;
-            if (imgSrc) {
-                const img = document.createElement('img');
-                img.src = imgSrc;
-                img.alt = 'Надіслане зображення';
-                msg.appendChild(img);
-            }
-            chatMessages.appendChild(msg);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+    // ===== Chat widget =====
+    var chatToggle     = document.getElementById('chatToggle');
+    var chatWidgetEl   = document.getElementById('chatWidget');
+    var chatCloseBtn   = document.getElementById('chatClose');
+    var chatMessages   = document.getElementById('chatMessages');
+    var chatInput      = document.getElementById('chatInput');
+    var chatSendBtn    = document.getElementById('chatSendBtn');
+    var chatImgBtn     = document.getElementById('chatImgBtn');
+    var chatImageInput = document.getElementById('chatImageInput');
+
+    var BOT_GREETING = 'Привіт! \ud83d\udc4b Я можу відповісти на ваші запитання або прийняти фото вашого проєкту. Як ми можемо допомогти?';
+
+    var BOT_REPLIES = [
+        {
+            match: function(w) { return w.indexOf('ціна') > -1 || w.indexOf('вартість') > -1 || w.indexOf('скільки') > -1 || w.indexOf('коштує') > -1; },
+            reply: 'Для точного розрахунку скористайтесь нашим калькулятором вище \ud83d\udc46 або надішліть фото деталі — оцінимо безкоштовно!'
+        },
+        {
+            match: function(w) { return w.indexOf('матеріал') > -1 || w.indexOf('pla') > -1 || w.indexOf('petg') > -1 || w.indexOf('abs') > -1 || w.indexOf('смол') > -1; },
+            reply: 'Ми друкуємо на PLA (міцний, eco-friendly), PETG (гнучкий, водостійкий), ABS (жаростійкий) та Смолі (точність до 0.1 мм). Допомогти обрати? \ud83d\udd2c'
+        },
+        {
+            match: function(w) { return w.indexOf('час') > -1 || w.indexOf('терм') > -1 || w.indexOf('швид') > -1 || w.indexOf('коли') > -1 || w.indexOf('довго') > -1; },
+            reply: 'Зазвичай виконуємо замовлення протягом 1–3 робочих днів. Складні деталі — до 5 днів. \ud83d\ude80'
+        },
+        {
+            match: function(w) { return w.indexOf('доставк') > -1 || w.indexOf('відправ') > -1 || w.indexOf('пошт') > -1; },
+            reply: 'Доставляємо по всій Україні (Нова Пошта, Укрпошта) та за кордон. Упакуємо надійно! \ud83d\udce6'
+        },
+        {
+            match: function(w) { return w.indexOf('контакт') > -1 || w.indexOf('телефон') > -1 || w.indexOf('номер') > -1 || w.indexOf('дзвон') > -1; },
+            reply: 'Телефони: +38 (093) 161-21-10 / +38 (095) 289-28-77. Або залиште заявку у формі на сторінці \ud83d\udcdd'
+        },
+        {
+            match: function(w) { return w.indexOf('фото') > -1 || w.indexOf('зображ') > -1 || w.indexOf('картин') > -1; },
+            reply: 'Надішліть фото через кнопку \ud83d\udcf7 — ми оцінимо ваш проєкт!'
+        },
+        {
+            match: function() { return true; },
+            reply: 'Дякуємо за повідомлення! Менеджер зв\'яжеться з вами найближчим часом. \ud83d\udcde'
         }
+    ];
 
-        function botReply(userText) {
-            const lower = (userText || '').toLowerCase();
-            let reply;
-            if (lower.includes('ціна') || lower.includes('вартість') || lower.includes('скільки')) {
-                reply = 'Для розрахунку вартості скористайтесь нашим калькулятором вище 👆 або надішліть нам фото вашої деталі.';
-            } else if (lower.includes('фото') || lower.includes('зображ') || lower.includes('картин')) {
-                reply = 'Надішліть фото через кнопку 📷 — ми оцінимо ваш проєкт!';
-            } else if (lower.includes('час') || lower.includes('терм')) {
-                reply = 'Зазвичай ми виконуємо замовлення протягом 1–3 днів залежно від складності.';
-            } else {
-                reply = 'Дякуємо за повідомлення! Менеджер зв\'яжеться з вами найближчим часом. 📞';
-            }
-            setTimeout(() => addMessage(reply, 'bot'), BOT_REPLY_DELAY);
+    function addMessage(text, type, imgSrc) {
+        var msg = document.createElement('div');
+        msg.classList.add('chat-msg', type);
+        if (text) msg.textContent = text;
+        if (imgSrc) {
+            var img = document.createElement('img');
+            img.src = imgSrc;
+            img.alt = 'Надіслане зображення';
+            msg.appendChild(img);
         }
+        chatMessages.appendChild(msg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 
-        chatToggle.addEventListener('click', () => {
-            const isOpen = chatWidget.classList.toggle('open');
-            chatToggle.title = isOpen ? 'Закрити чат' : 'Відкрити чат';
-            if (isOpen && chatMessages.children.length === 0) {
-                addMessage(BOT_GREETING, 'bot');
-            }
-        });
+    function showTyping() {
+        var el = document.createElement('div');
+        el.classList.add('chat-typing');
+        el.innerHTML = '<span></span><span></span><span></span>';
+        chatMessages.appendChild(el);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return el;
+    }
 
-        chatClose.addEventListener('click', () => {
-            chatWidget.classList.remove('open');
-            chatToggle.title = 'Відкрити чат';
-        });
-
-        function sendTextMessage() {
-            const text = chatInput.value.trim();
-            if (!text) return;
-            addMessage(text, 'user');
-            chatInput.value = '';
-            botReply(text);
+    function botReply(userText) {
+        var lower = (userText || '').toLowerCase();
+        var matched = null;
+        for (var i = 0; i < BOT_REPLIES.length; i++) {
+            if (BOT_REPLIES[i].match(lower)) { matched = BOT_REPLIES[i]; break; }
         }
+        var reply = matched ? matched.reply : BOT_REPLIES[BOT_REPLIES.length - 1].reply;
+        var typingEl = showTyping();
+        setTimeout(function() {
+            typingEl.remove();
+            addMessage(reply, 'bot');
+        }, 800 + Math.random() * 500);
+    }
 
-        chatSendBtn.addEventListener('click', sendTextMessage);
-        chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') sendTextMessage();
-        });
+    chatToggle.addEventListener('click', function() {
+        var isOpen = chatWidgetEl.classList.toggle('open');
+        chatToggle.setAttribute('aria-expanded', isOpen);
+        if (isOpen && chatMessages.children.length === 0) {
+            setTimeout(function() { addMessage(BOT_GREETING, 'bot'); }, 300);
+        }
+    });
 
-        chatImgBtn.addEventListener('click', () => chatImageInput.click());
+    chatCloseBtn.addEventListener('click', function() {
+        chatWidgetEl.classList.remove('open');
+        chatToggle.setAttribute('aria-expanded', 'false');
+    });
 
-        chatImageInput.addEventListener('change', () => {
-            const file = chatImageInput.files[0];
-            if (!file) return;
-            if (!file.type.startsWith('image/')) {
-                addMessage('Будь ласка, надсилайте лише зображення (JPEG, PNG тощо).', 'bot');
-                chatImageInput.value = '';
-                return;
-            }
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                addMessage(null, 'user', e.target.result);
-                setTimeout(() => addMessage('Дякуємо за фото! 🍣 Ми його розглянемо та зв\'яжемося з вами.', 'bot'), BOT_REPLY_DELAY);
-            };
-            reader.readAsDataURL(file);
+    function sendTextMessage() {
+        var text = chatInput.value.trim();
+        if (!text) return;
+        addMessage(text, 'user');
+        chatInput.value = '';
+        botReply(text);
+    }
+
+    chatSendBtn.addEventListener('click', sendTextMessage);
+    chatInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendTextMessage(); }
+    });
+
+    chatImgBtn.addEventListener('click', function() { chatImageInput.click(); });
+    chatImageInput.addEventListener('change', function() {
+        var file = chatImageInput.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+            addMessage('Будь ласка, надсилайте лише зображення (JPEG, PNG тощо).', 'bot');
             chatImageInput.value = '';
-        });
-    </script>
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+            addMessage(null, 'user', ev.target.result);
+            var typingEl = showTyping();
+            setTimeout(function() {
+                typingEl.remove();
+                addMessage('Дякуємо за фото! Наш менеджер розгляне його та зв\'яжеться з вами. \ud83d\udcf8', 'bot');
+            }, 1000);
+        };
+        reader.readAsDataURL(file);
+        chatImageInput.value = '';
+    });
+</script>
 </body>
 </html>
