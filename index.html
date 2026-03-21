@@ -72,6 +72,26 @@
             white-space: nowrap;
             flex-shrink: 0;
         }
+        .nav-logo img {
+            height: 46px;
+            width: auto;
+            border-radius: 8px;
+            /* The SVG has a cream background; a subtle shadow separates it from the dark nav */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+            transition: transform var(--tr);
+        }
+        .nav-logo:hover img { transform: scale(1.06); }
+        /* Hero logo */
+        .hero-logo {
+            display: block;
+            width: clamp(130px, 25vw, 190px);
+            height: auto;
+            margin: 0 auto 1.6rem;
+            border-radius: 18px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.45), 0 0 0 3px rgba(255,255,255,0.18);
+            transition: transform var(--tr);
+        }
+        .hero-logo:hover { transform: scale(1.04); }
         .nav-links {
             display: flex;
             align-items: center;
@@ -587,18 +607,7 @@
 <!-- ===== Navigation ===== -->
 <nav aria-label="Основна навігація">
     <a href="#home" class="nav-logo" aria-label="3dLabPrintGarage — на головну">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-                <linearGradient id="navLg" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#667eea"/>
-                    <stop offset="100%" stop-color="#764ba2"/>
-                </linearGradient>
-            </defs>
-            <polygon points="16,2 29,9.5 29,22.5 16,30 3,22.5 3,9.5" fill="url(#navLg)" opacity="0.92"/>
-            <polygon points="16,2 29,9.5 16,17 3,9.5" fill="white" opacity="0.18"/>
-            <polygon points="16,17 29,9.5 29,22.5 16,30" fill="white" opacity="0.07"/>
-            <line x1="16" y1="17" x2="16" y2="30" stroke="white" stroke-opacity="0.18" stroke-width="1"/>
-        </svg>
+        <img src="images/logo.svg" alt="3D Lab Print Garage logo" width="46" height="46">
         3dLabPrintGarage
     </a>
 
@@ -617,6 +626,7 @@
 <!-- ===== Hero ===== -->
 <section id="home" class="hero" aria-label="Головний банер">
     <div class="hero-content">
+        <img src="images/logo.svg" alt="3D Lab Print Garage" class="hero-logo">
         <h1>3dLabPrintGarage</h1>
         <p class="hero-tagline">Втілюємо ваші ідеї в реальність</p>
         <p class="hero-sub">Професійний 3D друк &middot; Швидко &middot; Якісно &middot; Доступно</p>

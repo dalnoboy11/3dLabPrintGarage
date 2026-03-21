@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 315" role="img" aria-label="3D Lab Print Garage">
+  <title>3D Lab Print Garage</title>
+
+  <!-- ========================================================
+       3D LAB PRINT GARAGE  –  Logo SVG recreation
+       Original: black bold badge with gear, wrenches, printer,
+       3D cube, and banner.  300×315 viewBox.
+       ======================================================== -->
+
+  <!-- ── Off-white background ── -->
+  <rect width="300" height="315" rx="14" fill="#f0ece0"/>
+
+  <!-- ────────────────────────────────────────────────────────
+       OUTER SHIELD  (hexagonal, pointed at bottom)
+       ──────────────────────────────────────────────────────── -->
+  <!-- Outer border -->
+  <path d="M150,12 L278,75 L278,222 L150,295 L22,222 L22,75 Z"
+        fill="none" stroke="#111" stroke-width="11" stroke-linejoin="round"/>
+  <!-- Inner border (inset 14 px) -->
+  <path d="M150,26 L265,83 L265,215 L150,281 L35,215 L35,83 Z"
+        fill="none" stroke="#111" stroke-width="4.5" stroke-linejoin="round"/>
+
+  <!-- Side decorative pillars (vertical bars inside the border gap) -->
+  <!-- Left pillar -->
+  <rect x="22" y="91"  width="13" height="121" rx="2" fill="#111"/>
+  <!-- Right pillar -->
+  <rect x="265" y="91" width="13" height="121" rx="2" fill="#111"/>
+
+  <!-- ────────────────────────────────────────────────────────
+       TWO CROSSED WRENCHES  (behind gear)
+       ──────────────────────────────────────────────────────── -->
+
+  <!-- Left wrench  (rotated ~-38°, pivot = gear centre 150,148) -->
+  <g transform="rotate(-38,150,148)">
+    <!-- handle bar -->
+    <rect x="44" y="140" width="212" height="18" rx="9" fill="#111"/>
+    <!-- open-end head (right) -->
+    <circle cx="256" cy="149" r="24" fill="none" stroke="#111" stroke-width="16"/>
+    <!-- jaw cut-out -->
+    <rect x="245" y="131" width="25" height="37" fill="#f0ece0"/>
+    <!-- closed ring (left) -->
+    <circle cx="44"  cy="149" r="16" fill="none" stroke="#111" stroke-width="16"/>
+    <circle cx="44"  cy="149" r="6"  fill="#111"/>
+  </g>
+
+  <!-- Right wrench  (rotated +38°) -->
+  <g transform="rotate(38,150,148)">
+    <!-- handle bar -->
+    <rect x="44" y="140" width="212" height="18" rx="9" fill="#111"/>
+    <!-- open-end head (left) -->
+    <circle cx="44"  cy="149" r="24" fill="none" stroke="#111" stroke-width="16"/>
+    <!-- jaw cut-out -->
+    <rect x="30"  y="131" width="25" height="37" fill="#f0ece0"/>
+    <!-- closed ring (right) -->
+    <circle cx="256" cy="149" r="16" fill="none" stroke="#111" stroke-width="16"/>
+    <circle cx="256" cy="149" r="6"  fill="#111"/>
+  </g>
+
+  <!-- ────────────────────────────────────────────────────────
+       GEAR / COG  (centre 150,148 ; outer R=105, inner R=82)
+       12 teeth, each 24 × 22 px
+       ──────────────────────────────────────────────────────── -->
+
+  <!-- Gear outer ring -->
+  <circle cx="150" cy="148" r="105" fill="none" stroke="#111" stroke-width="15"/>
+  <!-- Gear inner ring -->
+  <circle cx="150" cy="148" r="82"  fill="none" stroke="#111" stroke-width="9"/>
+
+  <!-- Gear teeth – rect centered at top, rotated 30° each -->
+  <g fill="#111">
+    <rect x="138" y="33" width="24" height="22" rx="3"/>
+    <rect x="138" y="33" width="24" height="22" rx="3" transform="rotate( 30,150,148)"/>
+    <rect x="138" y="33" width="24" height="22" rx="3" transform="rotate( 60,150,148)"/>
+    <rect x="138" y="33" width="24" height="22" rx="3" transform="rotate( 90,150,148)"/>
+    <rect x="138" y="33" width="24" height="22" rx="3" transform="rotate(120,150,148)"/>
+    <rect x="138" y="33" width="24" height="22" rx="3" transform="rotate(150,150,148)"/>
+    <rect x="138" y="33" width="24" height="22" rx="3" transform="rotate(180,150,148)"/>
+    <rect x="138" y="33" width="24" height="22" rx="3" transform="rotate(210,150,148)"/>
+    <rect x="138" y="33" width="24" height="22" rx="3" transform="rotate(240,150,148)"/>
+    <rect x="138" y="33" width="24" height="22" rx="3" transform="rotate(270,150,148)"/>
+    <rect x="138" y="33" width="24" height="22" rx="3" transform="rotate(300,150,148)"/>
+    <rect x="138" y="33" width="24" height="22" rx="3" transform="rotate(330,150,148)"/>
+  </g>
+
+  <!-- Cover gear interior with background colour so wrenches only show outside -->
+  <circle cx="150" cy="148" r="78" fill="#f0ece0"/>
+
+  <!-- ────────────────────────────────────────────────────────
+       3-D PRINTER HEAD  (inside gear)
+       ──────────────────────────────────────────────────────── -->
+
+  <!-- Printer body block -->
+  <rect x="122" y="72" width="56" height="44" rx="5" fill="#111"/>
+  <!-- Heater / hot-end block -->
+  <rect x="117" y="112" width="66" height="20" rx="4" fill="#111"/>
+  <!-- Nozzle taper -->
+  <polygon points="125,132 175,132 163,155 137,155" fill="#111"/>
+  <!-- Nozzle tip dot -->
+  <rect x="144" y="153" width="12" height="10" rx="2" fill="#111"/>
+
+  <!-- Printing rays (6 lines from nozzle tip) -->
+  <g stroke="#111" stroke-linecap="round">
+    <line x1="150" y1="164" x2="133" y2="180" stroke-width="4.5"/>
+    <line x1="150" y1="164" x2="167" y2="180" stroke-width="4.5"/>
+    <line x1="150" y1="164" x2="124" y2="175" stroke-width="3.5"/>
+    <line x1="150" y1="164" x2="176" y2="175" stroke-width="3.5"/>
+    <line x1="150" y1="164" x2="118" y2="168" stroke-width="2.5"/>
+    <line x1="150" y1="164" x2="182" y2="168" stroke-width="2.5"/>
+  </g>
+
+  <!-- 3D cube (isometric, small, being "printed") -->
+  <!-- top face (lightest) -->
+  <polygon points="150,182  173,194  150,206  127,194" fill="#111"/>
+  <!-- left face (mid tone) -->
+  <polygon points="127,194  150,206  150,222  127,210" fill="#444"/>
+  <!-- right face (darkest) -->
+  <polygon points="173,194  150,206  150,222  173,210" fill="#666"/>
+
+  <!-- ────────────────────────────────────────────────────────
+       BOTTOM BANNER / SCROLL
+       ──────────────────────────────────────────────────────── -->
+
+  <!-- Main banner body -->
+  <path d="M42,232 Q42,218 57,218 L243,218 Q258,218 258,232 L258,283
+           Q258,296 243,296 L57,296 Q42,296 42,283 Z" fill="#111"/>
+
+  <!-- Left scroll tab (curled inward) -->
+  <path d="M42,218 L15,232 L15,283 L42,296 Z" fill="#111"/>
+  <!-- Right scroll tab -->
+  <path d="M258,218 L285,232 L285,283 L258,296 Z" fill="#111"/>
+
+  <!-- Subtle inner line borders on banner -->
+  <rect x="50"  y="224" width="200" height="2.5" rx="1" fill="#f0ece0" opacity="0.35"/>
+  <rect x="50"  y="288" width="200" height="2.5" rx="1" fill="#f0ece0" opacity="0.35"/>
+
+  <!-- ── "3D LAB" ── -->
+  <text x="150" y="272"
+        font-family="'Arial Black','Franklin Gothic Heavy','Impact',Arial,sans-serif"
+        font-size="56"
+        font-weight="900"
+        fill="#f0ece0"
+        text-anchor="middle"
+        letter-spacing="2">3D LAB</text>
+
+  <!-- ── "PRINT GARAGE" ── -->
+  <text x="150" y="290"
+        font-family="'Arial Black','Franklin Gothic Heavy','Impact',Arial,sans-serif"
+        font-size="21"
+        font-weight="700"
+        fill="#f0ece0"
+        text-anchor="middle"
+        letter-spacing="3.5">PRINT GARAGE</text>
+
+  <!-- ────────────────────────────────────────────────────────
+       BOTTOM SHIELD CHEVRON  (double-V point)
+       ──────────────────────────────────────────────────────── -->
+  <!-- Outer chevron -->
+  <polygon points="150,312  116,299  184,299" fill="#111"/>
+  <!-- Inner highlight / second layer -->
+  <polygon points="150,302  122,300  178,300" fill="#f0ece0"/>
+  <!-- Innermost solid fill -->
+  <polygon points="150,306  126,301  174,301" fill="#111"/>
+</svg>
