@@ -52,6 +52,20 @@ describe('getBotReply', () => {
         });
     });
 
+    describe('delivery-related keywords', () => {
+        test('responds to "доставка"', () => {
+            expect(getBotReply('як здійснюється доставка?')).toBe(BOT_REPLIES.DELIVERY);
+        });
+
+        test('responds to "відправка"', () => {
+            expect(getBotReply('відправка за кордон?')).toBe(BOT_REPLIES.DELIVERY);
+        });
+
+        test('is case-insensitive for delivery keywords', () => {
+            expect(getBotReply('ДОСТАВКА')).toBe(BOT_REPLIES.DELIVERY);
+        });
+    });
+
     describe('default reply', () => {
         test('returns default for unrecognized message', () => {
             expect(getBotReply('привіт')).toBe(BOT_REPLIES.DEFAULT);
