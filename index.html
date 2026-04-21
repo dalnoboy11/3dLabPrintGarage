@@ -1,424 +1,428 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3dLabPrintGarage - Студія 3D Друку в Одесі</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; }
-        nav { background: rgba(0,0,0,0.9); padding: 1rem; position: sticky; top: 0; z-index: 100; }
-        nav a { color: #fff; text-decoration: none; margin: 0 1.5rem; font-weight: bold; transition: color 0.3s; }
-        nav a:hover { color: #ff006e; }
-        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 5rem 2rem; text-align: center; }
-        .hero h2 { font-size: 3rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.5rem; margin-bottom: 2rem; }
-        .cta-btn { background: #ff006e; color: white; border: none; padding: 1rem 2rem; font-size: 1rem; border-radius: 5px; cursor: pointer; transition: transform 0.3s; }
-        .cta-btn:hover { transform: scale(1.1); }
-        section { padding: 3rem 2rem; }
-        .gallery { background: #f5f5f5; text-align: center; }
-        .gallery h3, .calculator h3, .about h3, .contact h3 { font-size: 2.5rem; margin-bottom: 2rem; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 1000px; margin: 0 auto; }
-        .gallery-item { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 10px; color: white; text-align: center; transition: transform 0.3s; }
-        .gallery-item:hover { transform: translateY(-10px); }
-        .calculator { background: white; text-align: center; }
-        .calc-form { max-width: 500px; margin: 0 auto; background: #f9f9f9; padding: 2rem; border-radius: 10px; }
-        .input-group { margin-bottom: 1.5rem; text-align: left; }
-        .input-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
-        .input-group input, .input-group select { width: 100%; padding: 0.8rem; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem; }
-        .result { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 5px; margin: 1rem 0; }
-        .result h4 { font-size: 2rem; margin-top: 0.5rem; }
-        .order-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1rem; width: 100%; font-size: 1rem; border-radius: 5px; cursor: pointer; font-weight: bold; transition: transform 0.3s; }
-        .order-btn:hover { transform: scale(1.05); }
-        .about { background: #f5f5f5; }
-        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto; }
-        .about-text { text-align: left; }
-        .about-text ul { list-style: none; margin-left: 1rem; }
-        .about-text li { margin: 0.5rem 0; line-height: 1.6; }
-        .contact { background: white; }
-        .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0; }
-        .contact-item { background: #f9f9f9; padding: 2rem; border-radius: 10px; }
-        .contact-item a { color: #667eea; text-decoration: none; font-weight: bold; }
-        .contact-form { max-width: 600px; margin: 2rem auto; background: #f9f9f9; padding: 2rem; border-radius: 10px; }
-        .contact-form input, .contact-form textarea { width: 100%; padding: 0.8rem; margin: 1rem 0; border: 2px solid #ddd; border-radius: 5px; font-family: Arial; }
-        .submit-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 1rem; width: 100%; font-size: 1rem; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .submit-btn:hover { transform: scale(1.05); }
-        footer { background: #333; color: white; text-align: center; padding: 2rem; }
-
-        /* Chat Widget */
-        .chat-toggle-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
-            z-index: 1000;
-            transition: transform 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .chat-toggle-btn:hover { transform: scale(1.1); }
-
-        .chat-widget {
-            position: fixed;
-            bottom: 6rem;
-            right: 2rem;
-            width: 340px;
-            max-height: 480px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            z-index: 999;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .chat-widget.open { display: flex; }
-
-        .chat-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chat-header h4 { font-size: 1rem; margin: 0; }
-        .chat-header span { font-size: 0.8rem; opacity: 0.85; }
-        .chat-close { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; padding: 0 0.2rem; }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            min-height: 200px;
-        }
-        .chat-msg {
-            max-width: 80%;
-            padding: 0.6rem 0.9rem;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            word-break: break-word;
-        }
-        .chat-msg.bot {
-            background: #f0f0f0;
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-        }
-        .chat-msg.user {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
-        }
-        .chat-msg img {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-top: 0.4rem;
-            display: block;
-        }
-
-        .chat-input-area {
-            border-top: 1px solid #eee;
-            padding: 0.8rem;
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            background: #fafafa;
-        }
-        .chat-input-area input[type="text"] {
-            flex: 1;
-            padding: 0.6rem 0.9rem;
-            border: 2px solid #ddd;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            outline: none;
-            font-family: Arial;
-        }
-        .chat-input-area input[type="text"]:focus { border-color: #667eea; }
-        .chat-send-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
-            flex-shrink: 0;
-        }
-        .chat-send-btn:hover { transform: scale(1.1); }
-        .chat-img-btn {
-            background: none;
-            border: 2px solid #ddd;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: border-color 0.2s;
-            flex-shrink: 0;
-        }
-        .chat-img-btn:hover { border-color: #667eea; }
-        #chatImageInput { display: none; }
-
-        @media (max-width: 768px) {
-            .about-content { grid-template-columns: 1fr; }
-            .hero h2 { font-size: 2rem; }
-            nav a { margin: 0 0.7rem; font-size: 0.9rem; }
-            .chat-widget { width: calc(100vw - 2rem); right: 1rem; bottom: 5rem; }
-            .chat-toggle-btn { right: 1rem; bottom: 1rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3D LAB Print Garage — 3D друк на замовлення в Одесі | FDM друк, декор, метрики, павербанки</title>
+<meta name="description" content="Студія 3D друку в Одесі. FDM друк на замовлення: метрики, декор, корпуси для електроніки, павербанки, подарунки. Швидкі терміни, доставка по Україні.">
+<meta name="keywords" content="3D друк Одеса, 3д принтер, FDM друк, 3D друк на замовлення, метрика для малюка, павербанк, корпус для електроніки, 3D LAB Print Garage">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://3dmgprintstudio.com/">
+<!-- Open Graph -->
+<meta property="og:title" content="3D LAB Print Garage — 3D друк на замовлення в Одесі">
+<meta property="og:description" content="FDM друк: метрики, декор, корпуси, павербанки. Індивідуальний підхід, доставка по Україні.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://3dmgprintstudio.com/">
+<meta property="og:locale" content="uk_UA">
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"3D LAB Print Garage",
+  "description":"Студія 3D друку в Одесі. FDM друк на замовлення.",
+  "url":"https://YOUR_DOMAIN.com/",
+  "telephone":["+380931612110","+380952892877","+380677177287"],
+  "email":"printd112@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"вул. Євгена Чикаленко, 74","addressLocality":"Одеса","addressCountry":"UA"},
+  "sameAs":["https://www.instagram.com/3druk_odesa","https://t.me/I3DMG_Print","https://x.com/3dlabprintfcgy","https://www.tiktok.com/@3dlabprintgarage"]
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(255,255,255,0.04);--cardH:rgba(255,255,255,0.08);--a1:#00e5ff;--a2:#b388ff;--txt:#e0e0e0;--mut:#888;--brd:rgba(255,255,255,0.08);--grad:linear-gradient(135deg,#00e5ff,#b388ff);--ok:#69f0ae}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',-apple-system,system-ui,sans-serif;overflow-x:hidden}
+a{color:var(--a1);text-decoration:none}
+.glow{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.card{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:24px;transition:all .3s}
+.card:hover{background:var(--cardH);border-color:rgba(0,229,255,.2);transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,229,255,.1)}
+.btn-primary{background:var(--grad);color:#000;border:none;border-radius:12px;padding:14px 32px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 24px rgba(0,229,255,.3)}
+.btn-outline{background:transparent;color:var(--txt);border:1px solid var(--brd);border-radius:12px;padding:14px 32px;font-size:16px;font-weight:500;cursor:pointer}
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd);display:flex;justify-content:space-between;align-items:center;padding:8px 24px}
+nav .links a{color:var(--txt);margin-left:20px;font-size:13px;border-bottom:2px solid transparent;padding-bottom:2px;transition:.2s}
+nav .links a:hover{border-color:var(--a1)}
+.socials{display:flex;gap:10px}
+.socials a{width:36px;height:36px;border-radius:10px;border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;color:var(--mut);transition:.3s;background:rgba(255,255,255,.03)}
+.socials a:hover{color:var(--a1);border-color:rgba(0,229,255,.3)}
+.socials svg{width:20px;height:20px}
+/* Cart badge */
+.cart-btn{position:relative;background:none;border:1px solid var(--brd);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--grad);color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+/* Hero */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(32px,6vw,60px);font-weight:800;line-height:1.1;color:#fff}
+.hero p{font-size:17px;color:var(--mut);max-width:520px;margin:24px 0 40px;line-height:1.6}
+.glow-orb{position:absolute;border-radius:50%;pointer-events:none}
+/* Section */
+section{padding:80px 24px;max-width:1100px;margin:0 auto}
+section h2{font-size:32px;font-weight:800;text-align:center;margin-bottom:12px;color:#fff}
+section .sub{text-align:center;color:var(--mut);margin-bottom:48px;font-size:15px}
+/* Grid */
+.grid{display:grid;gap:20px}
+.grid-4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.grid-steps{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+/* Product card */
+.prod-img{height:160px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--brd);position:relative;overflow:hidden}
+.prod-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.card:hover .prod-img img{transform:scale(1.05)}
+.prod-img .tag{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:8px;background:rgba(0,0,0,.6);font-size:11px;font-weight:600}
+.prod-img .price-tag{position:absolute;top:10px;right:10px;padding:3px 10px;border-radius:8px;background:rgba(0,0,0,.6);font-size:12px;color:var(--ok);font-weight:700}
+.add-btn{width:100%;padding:10px 0;border-radius:10px;border:1px solid var(--brd);background:transparent;color:var(--a1);font-size:13px;font-weight:700;cursor:pointer;transition:all .3s}
+.add-btn.added{border:none;background:var(--ok);color:#000}
+/* Filters */
+.filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.filters button{padding:8px 18px;border-radius:20px;border:1px solid var(--brd);background:transparent;color:var(--mut);font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.filters button.active{border-color:var(--a1);background:rgba(0,229,255,.1);color:var(--a1)}
+/* Steps */
+.step-num{width:44px;height:44px;border-radius:22px;background:var(--grad);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-weight:800;font-size:18px;color:#000}
+/* Info box */
+.info-box{padding:24px;border-radius:16px;border-left:3px solid var(--a1);background:var(--card)}
+/* Delivery */
+.del-card{text-align:center;padding:16px 24px;border-radius:12px;border:1px solid var(--brd);background:var(--card);min-width:120px}
+/* Contact grid */
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:32px}
+.contact-item{text-align:center;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--brd)}
+/* Input */
+.inp{width:100%;padding:12px 16px;background:rgba(255,255,255,.06);border:1px solid var(--brd);border-radius:10px;color:#fff;font-size:15px;outline:none;font-family:inherit}
+.inp::placeholder{color:#555}
+select.inp{cursor:pointer}
+/* Drawer */
+.drawer-overlay{position:fixed;inset:0;z-index:200;display:none;justify-content:flex-end}
+.drawer-overlay.open{display:flex}
+.drawer-bg{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
+.drawer{position:relative;width:100%;max-width:440px;background:#12121a;height:100%;overflow-y:auto;border-left:1px solid var(--brd);padding:24px}
+/* Radio */
+.radio-opt{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-radius:10px;border:1px solid var(--brd);cursor:pointer;transition:.2s;text-align:left;background:transparent;width:100%}
+.radio-opt.active{border-color:var(--a1);background:rgba(0,229,255,.08)}
+.radio-dot{width:20px;height:20px;border-radius:10px;border:2px solid var(--brd);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.radio-opt.active .radio-dot{border-color:var(--a1)}
+.radio-dot-inner{width:10px;height:10px;border-radius:5px;background:var(--a1);display:none}
+.radio-opt.active .radio-dot-inner{display:block}
+footer{text-align:center;padding:32px 24px;border-top:1px solid var(--brd)}
+/* Mobile */
+@media(max-width:768px){
+  nav .links{display:none}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:1fr}
+  .grid-steps{grid-template-columns:repeat(2,1fr)}
+  .contact-grid{grid-template-columns:1fr}
+  section{padding:60px 16px}
+}
+</style>
 </head>
 <body>
-    <nav>
-        <a href="#gallery">Роботи</a>
-        <a href="#calculator">Калькулятор</a>
-        <a href="#about">Про нас</a>
-        <a href="#contact">Контакти</a>
-    </nav>
 
-    <section class="hero">
-        <h2>3dLabPrintGarage</h2>
-        <p>Втілюємо ваші ідеї в реальність</p>
-        <p style="font-size: 1.1rem; margin: 1rem 0;">Професійна 3D друк. Швидко. Якісно. Доступно.</p>
-        <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Замовити</button>
-    </section>
-
-    <section id="gallery" class="gallery">
-        <h3>Наші роботи</h3>
-        <div class="gallery-grid">
-            <div class="gallery-item">🔧 Функціональні запчастини</div>
-            <div class="gallery-item">📦 Корпуси для електроніки</div>
-            <div class="gallery-item">🎯 Прототипування</div>
-            <div class="gallery-item">🛠️ DIY проекти</div>
-            <div class="gallery-item">🎨 Мініатюри та фігурки</div>
-            <div class="gallery-item">🚗 Авто запчастини</div>
-            <div class="gallery-item">🍣 Харчові сувеніри</div>
-        </div>
-    </section>
-
-    <section id="calculator" class="calculator">
-        <h3>Калькулятор вартості</h3>
-        <div class="calc-form">
-            <div class="input-group">
-                <label for="weight">Вага деталі (грам):</label>
-                <input type="number" id="weight" placeholder="Приклад: 50" min="1" oninput="calculatePrice()">
-            </div>
-            <div class="input-group">
-                <label for="time">Час друку (години):</label>
-                <input type="number" id="time" placeholder="Приклад: 2.5" min="0.1" step="0.1" oninput="calculatePrice()">
-            </div>
-            <div class="input-group">
-                <label for="material">Матеріал:</label>
-                <select id="material" onchange="calculatePrice()">
-                    <option value="pla">PLA - 5 грн/г</option>
-                    <option value="petg">PETG - 7 грн/г</option>
-                    <option value="abs">ABS - 6 грн/г</option>
-                    <option value="resin">Смола - 3 грн/мл</option>
-                </select>
-            </div>
-            <div class="result">
-                <p>Орієнтовна вартість:</p>
-                <h4 id="price">0 грн</h4>
-            </div>
-            <button class="order-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Замовити</button>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <h3>Про нашу студію</h3>
-        <div class="about-content">
-            <div class="about-text">
-                <h4>💻 Обладнання</h4>
-                <ul>
-                    <li><strong>2x Bambulabs A1</strong> - Високошвидкісні принтери з точною деталізацією</li>
-                    <li><strong>Elegoo Resin Carbon 1</strong> - Смоляний принтер для найдрібніших деталей</li>
-                    <li><strong>Artillery Sidewinder X3+</strong> - Велика будівельна платформа</li>
-                    <li><strong>2x Voxelab Aquila X2</strong> - Надійні та ефективні принтери</li>
-                </ul>
-            </div>
-            <div class="about-text">
-                <h4>✨ Що ми робимо</h4>
-                <ul>
-                    <li>✅ Друк моделей з відкритих джерел</li>
-                    <li>✅ Функціональні запчастини та корпуси</li>
-                    <li>✅ DIY компоненти для електроніки</li>
-                    <li>✅ Прототипування та малі серії</li>
-                    <li>✅ Консультації з оптимізації</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <h3>Зв'яжіться з нами</h3>
-        <div class="contact-info">
-            <div class="contact-item">
-                <h4>📞 Телефони</h4>
-                <p><a href="tel:+380931612110">+38 (093) 161-21-10</a></p>
-                <p><a href="tel:+380952892877">+38 (095) 289-28-77</a></p>
-                <p><a href="tel:+380677177287">+38 (067) 717-72-87</a></p>
-            </div>
-            <div class="contact-item">
-                <h4>📍 Місцезнаходження</h4>
-                <p>Одеса, Україна</p>
-                <p>Доставка по всій Україні та за кордон</p>
-            </div>
-            <div class="contact-item">
-                <h4>🔗 Соціальні мережі</h4>
-                <p><a href="https://instagram.com/3druk_odesa" target="_blank" rel="noopener noreferrer">@3druk_odesa</a></p>
-                <p><a href="https://instagram.com/3dlabprintgarage" target="_blank" rel="noopener noreferrer">@3dlabprintgarage</a></p>
-                <p><a href="https://x.com/3dlabprintfcgy" target="_blank" rel="noopener noreferrer">@3dlabprintfcgy</a></p>
-            </div>
-        </div>
-        <div class="contact-form">
-            <h4>Залиште повідомлення</h4>
-            <form onsubmit="handleSubmit(event)">
-                <input type="text" name="name" placeholder="Ваше ім'я" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <textarea name="message" placeholder="Опис вашого проекту" rows="4" required></textarea>
-                <button type="submit" class="submit-btn">Відправити</button>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 3dLabPrintGarage. Всі права захищені.</p>
-    </footer>
-
-    <!-- Chat Widget -->
-    <button class="chat-toggle-btn" id="chatToggle" title="Відкрити чат" aria-label="Відкрити чат">🌙</button>
-
-    <div class="chat-widget" id="chatWidget" role="dialog" aria-label="Чат підтримки">
-        <div class="chat-header">
-            <div>
-                <h4>💬 Чат підтримки</h4>
-                <span>Поставте питання або надішліть фото</span>
-            </div>
-            <button class="chat-close" id="chatClose" aria-label="Закрити чат">✕</button>
-        </div>
-        <div class="chat-messages" id="chatMessages"></div>
-        <div class="chat-input-area">
-            <input type="file" id="chatImageInput" accept="image/*" aria-label="Прикріпити зображення">
-            <button class="chat-img-btn" id="chatImgBtn" title="Надіслати фото" aria-label="Прикріпити фото">📷</button>
-            <input type="text" id="chatInput" placeholder="Напишіть повідомлення…" autocomplete="off" aria-label="Повідомлення">
-            <button class="chat-send-btn" id="chatSendBtn" title="Надіслати" aria-label="Надіслати">➤</button>
-        </div>
+<!-- NAV -->
+<nav>
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="#" style="font-weight:800;font-size:17px"><span class="glow">3D LAB</span> <span style="color:var(--mut);font-weight:400">Print Garage</span></a>
+    <div class="socials">
+      <a href="https://www.instagram.com/3druk_odesa" target="_blank" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://t.me/I3DMG_Print" target="_blank" title="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+      <a href="https://x.com/3dlabprintfcgy" target="_blank" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://www.tiktok.com/@3dlabprintgarage" target="_blank" title="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.7a8.16 8.16 0 004.76 1.51v-3.4a4.85 4.85 0 01-1-.12z"/></svg></a>
     </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <div class="links">
+      <a href="#products">Каталог</a>
+      <a href="#payment">Як замовити</a>
+      <a href="#calc">Калькулятор</a>
+      <a href="#contact">Контакти</a>
+    </div>
+    <button class="cart-btn" onclick="toggleCart()">🛒<span class="cart-badge" id="cartBadge" style="display:none">0</span></button>
+  </div>
+</nav>
 
-    <script src="js/calculator.js"></script>
-    <script src="js/chatbot.js"></script>
-    <script>
-        // --- Price calculator ---
-        function calculatePrice() {
-            const weight = parseFloat(document.getElementById('weight').value) || 0;
-            const time = parseFloat(document.getElementById('time').value) || 0;
-            const material = document.getElementById('material').value;
-            document.getElementById('price').textContent = computePrice(weight, time, material) + ' грн';
-        }
+<!-- HERO -->
+<section class="hero">
+  <div class="glow-orb" style="top:20%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(0,229,255,.08) 0%,transparent 70%)"></div>
+  <h1>Друкуємо ваші<br><span class="glow" id="heroWord">ідеї</span> у 3D</h1>
+  <p>Студія 3D-друку в Одесі. FDM-технологія, швидкі терміни, індивідуальний підхід. Декор, метрики, корпуси, павербанки та друк на замовлення.</p>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center">
+    <a href="#products" class="btn-primary">Дивитись каталог</a>
+    <a href="#payment" class="btn-outline">Як замовити?</a>
+  </div>
+</section>
 
-        function handleSubmit(e) {
-            e.preventDefault();
-            alert('Дякуємо за повідомлення! Ми звернемося до вас найближчим часом.');
-            e.target.reset();
-        }
+<!-- PRODUCTS -->
+<section id="products">
+  <h2><span class="glow">Каталог</span></h2>
+  <p class="sub">Кожен виріб друкується індивідуально під ваше замовлення</p>
+  <div class="filters" id="filters"></div>
+  <div class="grid grid-3" id="productGrid"></div>
+  <div style="text-align:center;margin-top:40px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+    <a href="https://www.instagram.com/3druk_odesa" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;border:1px solid var(--brd);font-size:14px;font-weight:600;background:rgba(0,229,255,.05)">📷 Instagram</a>
+    <a href="https://t.me/I3DMG_Print" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;border:1px solid var(--brd);font-size:14px;font-weight:600;background:rgba(0,229,255,.05)">✈️ Telegram</a>
+  </div>
+</section>
 
-        // --- Chat widget ---
-        const chatToggle = document.getElementById('chatToggle');
-        const chatWidget = document.getElementById('chatWidget');
-        const chatClose = document.getElementById('chatClose');
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const chatSendBtn = document.getElementById('chatSendBtn');
-        const chatImgBtn = document.getElementById('chatImgBtn');
-        const chatImageInput = document.getElementById('chatImageInput');
+<!-- PAYMENT -->
+<section id="payment">
+  <h2>Як <span class="glow">замовити</span></h2>
+  <p class="sub">Простий і прозорий процес від ідеї до готового виробу</p>
+  <div class="grid grid-steps" style="margin-bottom:48px" id="stepsGrid"></div>
+  <div class="info-box">
+    <h3 style="font-size:16px;font-weight:700;color:#fff;margin-bottom:10px">💡 Чому передоплата?</h3>
+    <p style="font-size:14px;color:var(--mut);line-height:1.7">Кожен виріб ми створюємо спеціально для вас — підбираємо матеріал, налаштовуємо параметри друку, за потреби доопрацьовуємо 3D-модель. Це не масове виробництво, а ручна робота з увагою до деталей. Передоплата підтверджує замовлення і дозволяє одразу приступити до роботи.</p>
+  </div>
+  <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap">
+    <div class="del-card"><div style="font-size:28px;margin-bottom:4px">🏢</div><div style="font-size:14px;color:#fff;font-weight:600">Самовивіз</div><div style="font-size:12px;color:var(--mut)">Одеса, вул. Чикаленко 74</div></div>
+    <div class="del-card"><div style="font-size:28px;margin-bottom:4px">📦</div><div style="font-size:14px;color:#fff;font-weight:600">Нова Пошта</div><div style="font-size:12px;color:var(--mut)">1-3 дні</div></div>
+    <div class="del-card"><div style="font-size:28px;margin-bottom:4px">✉️</div><div style="font-size:14px;color:#fff;font-weight:600">Укрпошта</div><div style="font-size:12px;color:var(--mut)">3-7 днів</div></div>
+  </div>
+</section>
 
-        const BOT_GREETING = 'Привіт! 👋 Я можу відповісти на ваші запитання або прийняти фото вашого проєкту. Як ми можемо допомогти?';
-        const BOT_REPLY_DELAY = 700;
+<!-- CALC -->
+<section id="calc" style="max-width:600px">
+  <h2><span class="glow">Калькулятор</span></h2>
+  <p class="sub">Орієнтовний розрахунок FDM-друку</p>
+  <div class="card" style="padding:28px">
+    <div style="margin-bottom:20px">
+      <label style="display:block;font-size:13px;color:var(--mut);margin-bottom:6px">Матеріал</label>
+      <select class="inp" id="calcMat" onchange="calcUpdate()">
+        <option value="3">PLA — 3 грн/г</option>
+        <option value="3.5">ABS — 3.5 грн/г</option>
+        <option value="4">PETG — 4 грн/г</option>
+        <option value="5">TPU — 5 грн/г</option>
+        <option value="7">Nylon — 7 грн/г</option>
+      </select>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+      <div><label style="display:block;font-size:13px;color:var(--mut);margin-bottom:6px">Вага (г)</label><input type="number" class="inp" id="calcWt" value="50" min="1" oninput="calcUpdate()"></div>
+      <div><label style="display:block;font-size:13px;color:var(--mut);margin-bottom:6px">Час (год)</label><input type="number" class="inp" id="calcHrs" value="3" min="0.5" step="0.5" oninput="calcUpdate()"></div>
+    </div>
+    <div style="border-top:1px solid var(--brd);padding-top:16px">
+      <div id="calcDetail" style="font-size:14px;color:var(--mut);margin-bottom:14px"></div>
+      <div style="display:flex;justify-content:space-between;font-size:26px;font-weight:800"><span style="color:#fff">Разом:</span><span class="glow" id="calcTotal">~240 грн</span></div>
+    </div>
+  </div>
+</section>
 
-        function addMessage(text, type, imgSrc) {
-            const msg = document.createElement('div');
-            msg.classList.add('chat-msg', type);
-            if (text) msg.textContent = text;
-            if (imgSrc) {
-                const img = document.createElement('img');
-                img.src = imgSrc;
-                img.alt = 'Надіслане зображення';
-                msg.appendChild(img);
-            }
-            chatMessages.appendChild(msg);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
+<!-- CONTACT -->
+<section id="contact" style="max-width:600px">
+  <h2><span class="glow">Контакти</span></h2>
+  <p style="text-align:center;color:var(--mut);margin-bottom:8px;font-size:15px">Є питання? Напишіть нам</p>
+  <p style="text-align:center;color:var(--a1);margin-bottom:32px;font-size:14px;font-weight:500">📍 Одеса, вул. Євгена Чикаленко, 74</p>
+  <div class="contact-grid">
+    <div class="contact-item"><div style="font-size:22px;margin-bottom:4px">📞</div><div style="font-size:11px;color:var(--mut)">Основний</div><div style="font-size:12px;color:var(--a1);font-weight:500">093-161-21-10</div></div>
+    <div class="contact-item"><div style="font-size:22px;margin-bottom:4px">📱</div><div style="font-size:11px;color:var(--mut)">Telegram/Viber</div><div style="font-size:12px;color:var(--a1);font-weight:500">095-289-28-77</div></div>
+    <div class="contact-item"><div style="font-size:22px;margin-bottom:4px">☎️</div><div style="font-size:11px;color:var(--mut)">Ще номер</div><div style="font-size:12px;color:var(--a1);font-weight:500">067-717-72-87</div></div>
+    <div class="contact-item"><div style="font-size:22px;margin-bottom:4px">✉️</div><div style="font-size:11px;color:var(--mut)">Email</div><div style="font-size:12px;color:var(--a1);font-weight:500">printd112@gmail.com</div></div>
+  </div>
+  <div class="card" style="padding:28px" id="contactForm">
+    <div style="margin-bottom:16px"><label style="display:block;font-size:13px;color:var(--mut);margin-bottom:6px">Ім'я</label><input class="inp" id="cName" placeholder="Як до вас звертатись?"></div>
+    <div style="margin-bottom:20px"><label style="display:block;font-size:13px;color:var(--mut);margin-bottom:6px">Повідомлення</label><textarea class="inp" id="cMsg" rows="4" placeholder="Опишіть задачу або задайте питання..." style="resize:vertical"></textarea></div>
+    <button class="btn-primary" style="width:100%" onclick="submitContact()">Надіслати</button>
+  </div>
+</section>
 
-        function botReply(userText) {
-            setTimeout(() => addMessage(getBotReply(userText), 'bot'), BOT_REPLY_DELAY);
-        }
+<footer>
+  <div class="socials" style="justify-content:center;margin-bottom:16px">
+    <a href="https://www.instagram.com/3druk_odesa" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+    <a href="https://t.me/I3DMG_Print" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+    <a href="https://x.com/3dlabprintfcgy" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    <a href="https://www.tiktok.com/@3dlabprintgarage" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.7a8.16 8.16 0 004.76 1.51v-3.4a4.85 4.85 0 01-1-.12z"/></svg></a>
+  </div>
+  <div style="color:var(--mut);font-size:13px">© 2026 3D LAB Print Garage · Одеса, Україна</div>
+</footer>
 
-        chatToggle.addEventListener('click', () => {
-            const isOpen = chatWidget.classList.toggle('open');
-            chatToggle.title = isOpen ? 'Закрити чат' : 'Відкрити чат';
-            if (isOpen && chatMessages.children.length === 0) {
-                addMessage(BOT_GREETING, 'bot');
-            }
-        });
+<!-- CART DRAWER -->
+<div class="drawer-overlay" id="cartDrawer">
+  <div class="drawer-bg" onclick="toggleCart()"></div>
+  <div class="drawer" id="drawerContent"></div>
+</div>
 
-        chatClose.addEventListener('click', () => {
-            chatWidget.classList.remove('open');
-            chatToggle.title = 'Відкрити чат';
-        });
+<script>
+// DATA — фото в папці photos/ поруч з index.html
+const products=[
+  {id:"m1",title:"Фоторамка-метрика для малюка",cat:"Метрики",color:"#ff80ab",price:"від 450 грн",desc:"Ім'я, дата, зріст, вага — поруч з фото",img:"photos/photo_342.jpg"},
+  {id:"m2",title:"Сімейна метрика-будиночок",cat:"Метрики",color:"#b388ff",price:"від 150 грн",desc:"Персоналізація імен, будь-який колір",img:"photos/photo_130.jpg"},
+  {id:"m3",title:"Фігурка вагітної з фото",cat:"Метрики",color:"#ea80fc",price:"індивідуально",desc:"Отвір для фото УЗД або першого фото",img:"photos/photo_270.jpg"},
+  {id:"d1",title:"Гачки-морозиво",cat:"Дитяча кімната",color:"#40c4ff",price:"85 грн",desc:"Яскравий декор для одягу та аксесуарів",img:"photos/photo_310.jpg"},
+  {id:"d2",title:"Підставки для яєць (звірята)",cat:"Кухня",color:"#ffd740",price:"індивідуально",desc:"Перетворюють сніданок на свято",img:"photos/photo_330.jpg"},
+  {id:"d3",title:"Магніти на холодильник",cat:"Декор",color:"#69f0ae",price:"індивідуально",desc:"Милі магнітики для настрою",img:"photos/photo_300.jpg"},
+  {id:"d4",title:"Декор Stranger Things",cat:"Декор",color:"#f44336",price:"індивідуально",desc:"Брелоки, костери, ключниці",img:"photos/photo_250.jpg"},
+  {id:"d5",title:"Костери та підставки",cat:"Кухня",color:"#ff9100",price:"індивідуально",desc:"Стильні підставки з будь-яким дизайном",img:"photos/photo_340.jpg"},
+  {id:"e1",title:"Корпус Raspberry Pi",cat:"Корпуси DIY",color:"#26c6da",price:"від 120 грн",desc:"Pi 3/4/5, вентиляція, кріплення",img:"photos/photo_008.jpg"},
+  {id:"e2",title:"Корпус Arduino",cat:"Корпуси DIY",color:"#29b6f6",price:"від 90 грн",desc:"Uno, Mega, Nano — отвори під роз'єми",img:"photos/photo_055.jpg"},
+  {id:"e3",title:"Бокс для плати / контролера",cat:"Корпуси DIY",color:"#00acc1",price:"індивідуально",desc:"Кастомний корпус за вашими розмірами",img:"photos/photo_040.jpg"},
+  {id:"e4",title:"Корпус блока живлення",cat:"Корпуси DIY",color:"#0097a7",price:"індивідуально",desc:"Захисний бокс з вентиляцією для DIY БП",img:"photos/photo_035.jpg"},
+  {id:"e5",title:"Панель з вирізами під роз'єми",cat:"Корпуси DIY",color:"#00838f",price:"від 60 грн",desc:"USB, HDMI, Jack, DC — точні вирізи",img:"photos/photo_057.jpg"},
+  {id:"p1",title:"Павербанк 5S4P 18650",cat:"Павербанки",color:"#7c4dff",price:"індивідуально",desc:"DIY павербанк з BMS до 100W",img:"photos/photo_011.jpg"},
+  {id:"p2",title:"Корпус павербанка 4S2P",cat:"Павербанки",color:"#651fff",price:"від 200 грн",desc:"Компактний двокомпонентний корпус",img:"photos/photo_016.jpg"},
+  {id:"p3",title:"Корпус павербанка 6S3P",cat:"Павербанки",color:"#6200ea",price:"від 280 грн",desc:"Великий, під QC/PD, з індикацією",img:"photos/photo_018.jpg"},
+  {id:"p4",title:"Панель під BMS",cat:"Павербанки",color:"#9575cd",price:"від 80 грн",desc:"Вирізи під USB-C, дисплей, кнопку",img:"photos/photo_019.jpg"},
+  {id:"c1",title:"Друк на замовлення",cat:"Замовлення",color:"#00e5ff",price:"розрахунок",desc:"Будь-яка модель за файлом або ідеєю",img:"photos/photo_060.jpg"},
+];
 
-        function sendTextMessage() {
-            const text = chatInput.value.trim();
-            if (!text) return;
-            addMessage(text, 'user');
-            chatInput.value = '';
-            botReply(text);
-        }
+const steps=[
+  {n:"1",t:"Обираєте",d:"Додайте товари в кошик або опишіть ідею"},
+  {n:"2",t:"Обговорюємо",d:"Уточнимо розмір, матеріал, колір та вартість"},
+  {n:"3",t:"Передоплата",d:"50% або повна оплата — запускаємо друк"},
+  {n:"4",t:"Отримуєте",d:"Самовивіз або Нова Пошта / Укрпошта"},
+];
 
-        chatSendBtn.addEventListener('click', sendTextMessage);
-        chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') sendTextMessage();
-        });
+let cart=[];
+let curFilter="Все";
+let cartStep="cart";
 
-        chatImgBtn.addEventListener('click', () => chatImageInput.click());
+// HERO ANIMATION
+const heroWords=["ідеї","прототипи","деталі","подарунки","декор","корпуси"];
+let wi=0;
+setInterval(()=>{wi=(wi+1)%heroWords.length;document.getElementById("heroWord").textContent=heroWords[wi]},2000);
 
-        chatImageInput.addEventListener('change', () => {
-            const file = chatImageInput.files[0];
-            if (!file) return;
-            if (!file.type.startsWith('image/')) {
-                addMessage('Будь ласка, надсилайте лише зображення (JPEG, PNG тощо).', 'bot');
-                chatImageInput.value = '';
-                return;
-            }
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                addMessage(null, 'user', e.target.result);
-                setTimeout(() => addMessage('Дякуємо за фото! 🍣 Ми його розглянемо та зв\'яжемося з вами.', 'bot'), BOT_REPLY_DELAY);
-            };
-            reader.readAsDataURL(file);
-            chatImageInput.value = '';
-        });
-    </script>
+// RENDER PRODUCTS
+function renderProducts(){
+  const cats=["Все",...new Set(products.map(p=>p.cat))];
+  const fEl=document.getElementById("filters");
+  fEl.innerHTML=cats.map(c=>`<button class="${c===curFilter?"active":""}" onclick="setFilter('${c}')">${c}</button>`).join("");
+  const shown=curFilter==="Все"?products:products.filter(p=>p.cat===curFilter);
+  document.getElementById("productGrid").innerHTML=shown.map(p=>`
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="prod-img" style="background:linear-gradient(135deg,${p.color}18,${p.color}06)">
+        <img src="${p.img}" alt="${p.title}" loading="lazy">
+        <div class="tag" style="color:${p.color}">${p.cat}</div>
+        <div class="price-tag">${p.price}</div>
+      </div>
+      <div style="padding:16px">
+        <h3 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:6px">${p.title}</h3>
+        <p style="font-size:13px;color:var(--mut);margin-bottom:14px;line-height:1.4">${p.desc}</p>
+        <button class="add-btn" id="btn-${p.id}" onclick="addToCart('${p.id}')">🛒 До кошика</button>
+      </div>
+    </div>
+  `).join("");
+}
+function setFilter(c){curFilter=c;renderProducts()}
+
+// STEPS
+document.getElementById("stepsGrid").innerHTML=steps.map(s=>`
+  <div class="card" style="text-align:center;padding:24px">
+    <div class="step-num">${s.n}</div>
+    <h3 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:6px">${s.t}</h3>
+    <p style="font-size:13px;color:var(--mut);line-height:1.5">${s.d}</p>
+  </div>
+`).join("");
+
+// CART
+function addToCart(id){
+  const p=products.find(x=>x.id===id);
+  const ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;else cart.push({...p,qty:1});
+  updateBadge();
+  const btn=document.getElementById("btn-"+id);
+  if(btn){btn.className="add-btn added";btn.textContent="✓ Додано";setTimeout(()=>{btn.className="add-btn";btn.textContent="🛒 До кошика"},1200)}
+}
+function updateBadge(){
+  const c=cart.reduce((s,i)=>s+i.qty,0);
+  const b=document.getElementById("cartBadge");
+  if(c>0){b.style.display="flex";b.textContent=c}else{b.style.display="none"}
+}
+function toggleCart(){
+  const d=document.getElementById("cartDrawer");
+  d.classList.toggle("open");
+  if(d.classList.contains("open")){cartStep="cart";renderCart()}
+}
+function renderCart(){
+  const d=document.getElementById("drawerContent");
+  if(cartStep==="done"){
+    d.innerHTML=`<div style="text-align:center;padding:60px 20px"><div style="font-size:56px;margin-bottom:16px">🎉</div><h3 style="color:#fff;font-size:22px;font-weight:700;margin-bottom:12px">Замовлення оформлено!</h3><p style="color:var(--mut);font-size:15px">Ми зв'яжемось найближчим часом.</p></div>`;
+    setTimeout(()=>{cart=[];updateBadge();toggleCart();cartStep="cart"},3500);
+    return;
+  }
+  if(cartStep==="checkout"){renderCheckout(d);return}
+  let h=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px"><h2 style="font-size:22px;font-weight:800;color:#fff">🛒 Кошик</h2><button onclick="toggleCart()" style="background:none;border:none;color:var(--mut);font-size:28px;cursor:pointer">×</button></div>`;
+  if(cart.length===0){
+    h+=`<div style="text-align:center;padding:60px 20px;color:var(--mut)"><div style="font-size:48px;margin-bottom:12px;opacity:.5">🛒</div><p>Кошик порожній</p></div>`;
+  }else{
+    cart.forEach(it=>{
+      h+=`<div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--brd)">
+        <div style="width:44px;height:44px;border-radius:10px;overflow:hidden;flex-shrink:0"><img src="${it.img}" alt="${it.title}" style="width:100%;height:100%;object-fit:cover"></div>
+        <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${it.title}</div><div style="font-size:12px;color:var(--mut)">${it.price}</div></div>
+        <div style="display:flex;align-items:center;gap:4px">
+          <button onclick="changeQty('${it.id}',-1)" style="width:26px;height:26px;border-radius:8px;border:1px solid var(--brd);background:transparent;color:var(--txt);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center">−</button>
+          <span style="font-size:14px;font-weight:600;color:#fff;width:22px;text-align:center">${it.qty}</span>
+          <button onclick="changeQty('${it.id}',1)" style="width:26px;height:26px;border-radius:8px;border:1px solid var(--brd);background:transparent;color:var(--txt);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center">+</button>
+        </div>
+        <button onclick="removeItem('${it.id}')" style="background:none;border:none;color:#f44;cursor:pointer;font-size:16px;padding:4px">✕</button>
+      </div>`;
+    });
+    h+=`<div style="padding:16px 0;border-bottom:1px solid var(--brd);font-size:13px;color:var(--mut);line-height:1.6">💡 Точна вартість розраховується індивідуально.</div>`;
+    h+=`<div style="display:flex;gap:12px;margin-top:20px"><button class="btn-primary" style="flex:1;padding:14px 0;font-size:15px" onclick="cartStep='checkout';renderCart()">Оформити</button><button class="btn-outline" style="padding:14px 16px;font-size:13px" onclick="cart=[];updateBadge();renderCart()">Очистити</button></div>`;
+  }
+  d.innerHTML=h;
+}
+function changeQty(id,d){const it=cart.find(x=>x.id===id);if(it){it.qty+=d;if(it.qty<1)cart=cart.filter(x=>x.id!==id)}updateBadge();renderCart()}
+function removeItem(id){cart=cart.filter(x=>x.id!==id);updateBadge();renderCart()}
+
+function renderCheckout(d){
+  d.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px"><h2 style="font-size:22px;font-weight:800;color:#fff">📋 Оформлення</h2><button onclick="toggleCart()" style="background:none;border:none;color:var(--mut);font-size:28px;cursor:pointer">×</button></div>
+    <button onclick="cartStep='cart';renderCart()" style="background:none;border:none;color:var(--a1);cursor:pointer;font-size:14px;margin-bottom:20px;padding:0">← Назад</button>
+    <div style="margin-bottom:16px"><label style="display:block;font-size:13px;color:var(--mut);margin-bottom:6px">ПІБ *</label><input class="inp" id="oName" placeholder="Прізвище Ім'я По батькові"></div>
+    <div style="margin-bottom:16px"><label style="display:block;font-size:13px;color:var(--mut);margin-bottom:6px">Телефон *</label><input class="inp" id="oPhone" placeholder="+380 XX XXX XX XX"></div>
+    <div style="margin-bottom:16px"><label style="display:block;font-size:13px;color:var(--mut);margin-bottom:6px">Доставка</label>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button class="radio-opt active" id="del-nova" onclick="setDel('nova')"><div><span style="color:#fff;font-size:14px;font-weight:600">📦 Нова Пошта</span><br><span style="font-size:12px;color:var(--mut)">по Україні, 1-3 дні</span></div><div class="radio-dot"><div class="radio-dot-inner"></div></div></button>
+        <button class="radio-opt" id="del-ukr" onclick="setDel('ukr')"><div><span style="color:#fff;font-size:14px;font-weight:600">✉️ Укрпошта</span><br><span style="font-size:12px;color:var(--mut)">по Україні, 3-7 днів</span></div><div class="radio-dot"><div class="radio-dot-inner"></div></div></button>
+        <button class="radio-opt" id="del-self" onclick="setDel('self')"><div><span style="color:#fff;font-size:14px;font-weight:600">🏢 Самовивіз</span><br><span style="font-size:12px;color:var(--mut)">Одеса, вул. Чикаленко 74</span></div><div class="radio-dot"><div class="radio-dot-inner"></div></div></button>
+      </div>
+    </div>
+    <div id="shipFields">
+      <div style="margin-bottom:16px"><label style="display:block;font-size:13px;color:var(--mut);margin-bottom:6px">Місто</label><input class="inp" id="oCity" placeholder="Ваше місто"></div>
+      <div style="margin-bottom:16px"><label style="display:block;font-size:13px;color:var(--mut);margin-bottom:6px">Відділення</label><input class="inp" id="oWh" placeholder="Номер відділення НП"></div>
+    </div>
+    <div style="margin-bottom:20px"><label style="display:block;font-size:13px;color:var(--mut);margin-bottom:6px">Коментар</label><textarea class="inp" id="oComment" rows="3" placeholder="Колір, розмір, побажання..." style="resize:vertical"></textarea></div>
+    <div style="padding:14px;border-radius:12px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);margin-bottom:20px">
+      <p style="font-size:13px;color:var(--mut);margin:0;line-height:1.6">💳 <strong style="color:#fff">Оплата:</strong> Після оформлення ми зв'яжемось, уточнимо деталі. Передоплата 50% або повна оплата на карту ФОП.</p>
+    </div>
+    <button class="btn-primary" style="width:100%;font-size:16px" onclick="submitOrder()">Оформити замовлення</button>
+  `;
+}
+let curDel="nova";
+function setDel(v){
+  curDel=v;
+  document.querySelectorAll(".radio-opt").forEach(el=>el.classList.remove("active"));
+  document.getElementById("del-"+v).classList.add("active");
+  document.getElementById("shipFields").style.display=v==="self"?"none":"block";
+}
+function submitOrder(){
+  const n=document.getElementById("oName").value;
+  const p=document.getElementById("oPhone").value;
+  if(!n||!p){alert("Заповніть ПІБ та телефон");return}
+  // TODO: тут підключити Telegram Bot API
+  cartStep="done";renderCart();
+}
+
+// CALC
+function calcUpdate(){
+  const ppg=parseFloat(document.getElementById("calcMat").value);
+  const wt=Math.max(1,parseInt(document.getElementById("calcWt").value)||1);
+  const hrs=Math.max(0.5,parseFloat(document.getElementById("calcHrs").value)||0.5);
+  const mc=wt*ppg,wc=hrs*30,tot=mc+wc;
+  document.getElementById("calcDetail").innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Матеріал ${wt}г × ${ppg}</span><span>${mc} грн</span></div><div style="display:flex;justify-content:space-between"><span>Робота ${hrs}год × 30</span><span>${wc} грн</span></div>`;
+  document.getElementById("calcTotal").textContent="~"+tot+" грн";
+}
+
+// CONTACT
+function submitContact(){
+  const n=document.getElementById("cName").value;
+  const m=document.getElementById("cMsg").value;
+  if(!n||!m)return;
+  // TODO: Telegram Bot API
+  document.getElementById("contactForm").innerHTML='<div style="text-align:center;padding:24px"><div style="font-size:48px;margin-bottom:12px">✅</div><h3 style="color:#fff;font-size:18px;margin-bottom:8px">Надіслано!</h3><p style="color:var(--mut);font-size:14px">Відповімо найближчим часом</p></div>';
+}
+
+// INIT
+renderProducts();
+calcUpdate();
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener("click",e=>{e.preventDefault();const t=document.querySelector(a.getAttribute("href"));if(t)t.scrollIntoView({behavior:"smooth"})});
+});
+</script>
 </body>
 </html>
