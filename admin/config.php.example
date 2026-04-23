@@ -1,0 +1,8 @@
+<?php
+// Скопіюйте цей файл як config.php і заповніть своїми ключами
+// УВАГА: config.php в .gitignore — не пушити на GitHub!
+
+define('GEMINI_API_KEY',  'ваш_ключ_google_gemini');
+define('TG_BOT_TOKEN',    'токен_бота_telegram');
+define('TG_CHAT_ID',      'chat_id_telegram');
+define('ADMIN_PASSWORD',  'ваш_пароль_адмінки');
